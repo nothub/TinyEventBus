@@ -16,9 +16,9 @@ class AsyncTests {
 
     int runs = 0;
 
-    Sub a = new Sub(0, BooleanEvent.class, e -> runs++);
-    Sub b = new Sub(1, BooleanEvent.class, e -> runs++);
-    Sub c = new Sub(2 , BooleanEvent.class, e -> runs++);
+    Sub<BooleanEvent> a = new Sub<>(0, BooleanEvent.class, e -> runs++);
+    Sub<BooleanEvent> b = new Sub<>(1, BooleanEvent.class, e -> runs++);
+    Sub<BooleanEvent> c = new Sub<>(2 , BooleanEvent.class, e -> runs++);
 
     @Test
     @DisplayName("unreg while pub")
