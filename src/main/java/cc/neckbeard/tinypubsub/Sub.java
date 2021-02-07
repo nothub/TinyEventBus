@@ -5,13 +5,15 @@ import org.jetbrains.annotations.NotNull;
 public abstract class Sub<E extends Event> implements Comparable<Sub<? extends Event>> {
 
     public final int prio;
+    public final Class<?> type;
 
-    public Sub(int prio) {
+    public Sub(int prio, Class<?> type) {
         this.prio = prio;
+        this.type = type;
     }
 
-    public Sub() {
-        this(0);
+    public Sub(Class<?> type) {
+        this(0, type);
     }
 
     public abstract void on(E event);

@@ -20,23 +20,23 @@ class SubTests {
     @Test
     @DisplayName("order")
     void order() {
-        Sub<BooleanEvent> a = new Sub<BooleanEvent>(2) {
+        Sub<BooleanEvent> a = new Sub<BooleanEvent>(2, BooleanEvent.class) {
             @Override
             public void on(BooleanEvent event) {}
         };
-        Sub<BooleanEvent> b = new Sub<BooleanEvent>(1) {
+        Sub<BooleanEvent> b = new Sub<BooleanEvent>(1, BooleanEvent.class) {
             @Override
             public void on(BooleanEvent event) {}
         };
-        Sub<BooleanEvent> c = new Sub<BooleanEvent>() {
+        Sub<BooleanEvent> c = new Sub<BooleanEvent>(BooleanEvent.class) {
             @Override
             public void on(BooleanEvent event) {}
         };
-        Sub<BooleanEvent> d = new Sub<BooleanEvent>(-1) {
+        Sub<BooleanEvent> d = new Sub<BooleanEvent>(-1, BooleanEvent.class) {
             @Override
             public void on(BooleanEvent event) {}
         };
-        Sub<BooleanEvent> e = new Sub<BooleanEvent>(-2) {
+        Sub<BooleanEvent> e = new Sub<BooleanEvent>(-2, BooleanEvent.class) {
             @Override
             public void on(BooleanEvent event) {}
         };

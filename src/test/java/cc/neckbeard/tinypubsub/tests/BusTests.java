@@ -14,7 +14,7 @@ class BusTests {
 
     final boolean[] invoked = {false};
 
-    Sub<BooleanEvent> sub = new Sub<BooleanEvent>() {
+    Sub<BooleanEvent> sub = new Sub<BooleanEvent>(BooleanEvent.class) {
         @Override
         public void on(BooleanEvent event) {
             invoked[0] = event.bool;
