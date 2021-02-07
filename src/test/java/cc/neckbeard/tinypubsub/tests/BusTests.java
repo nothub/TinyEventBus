@@ -25,7 +25,7 @@ class BusTests {
     @DisplayName("invoke")
     void invoke() {
         Bus bus = new Bus();
-        bus.reg(sub, BooleanEvent.class);
+        bus.reg(sub);
         bus.pub(new BooleanEvent(true));
         Assertions.assertTrue(invoked[0]);
     }
