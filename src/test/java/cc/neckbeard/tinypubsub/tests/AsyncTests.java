@@ -36,18 +36,18 @@ class AsyncTests {
     };
 
     @Test
-    @DisplayName("unreg while pushing")
+    @DisplayName("unreg while pub")
     void unreg() throws InterruptedException {
 
         Bus bus = new Bus();
         bus.regAll(this);
 
         Thread t1 = new Thread(() -> IntStream
-            .range(0, 10500)
+            .range(0, 1000000)
             .forEach(i -> bus.pub(new BooleanEvent(true))));
 
         Thread t2 = new Thread(() -> IntStream
-            .range(0, 10)
+            .range(0, 10000)
             .forEach(i -> {
                 bus.unregAll(this);
                 bus.reg(a);
@@ -56,10 +56,10 @@ class AsyncTests {
         t1.start();
         t2.start();
 
-        t1.join(100000);
-        t2.join(100000);
+        t1.join();
+        t2.join();
 
-        Assertions.assertNotEquals(10500 * 3, runs);
+        Assertions.assertTrue(1000000 * 3 > runs);
 
     }
 
