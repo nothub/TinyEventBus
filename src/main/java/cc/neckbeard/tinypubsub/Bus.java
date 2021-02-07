@@ -63,7 +63,7 @@ public class Bus {
             this.subs.computeIfAbsent(e.getClass(), c -> new ConcurrentSkipListSet<>())
                 .forEach(sub -> {
                     if (e.isCancelled()) return;
-                    sub.on(e);
+                    sub.consumer.accept(e);
                 });
         }
     }
