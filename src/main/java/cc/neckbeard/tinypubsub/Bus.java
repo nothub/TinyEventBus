@@ -38,9 +38,8 @@ public class Bus {
 
     public void reg(@NotNull Sub sub) {
         synchronized (locks.computeIfAbsent(sub.type, c -> new Object())) {
-            final ConcurrentSkipListSet<Sub> subs = this.subs.computeIfAbsent(sub.type, c -> new ConcurrentSkipListSet<>());
-            if (subs.contains(sub)) return;
-            subs.add(sub);
+            if (this.subs.computeIfAbsent(sub.type, c -> new ConcurrentSkipListSet<>()).contains(sub)) return;
+            this.subs.get(sub.type).add(sub);
         }
     }
 
@@ -50,12 +49,8 @@ public class Bus {
 
     public void unreg(@NotNull Sub sub) {
         synchronized (locks.computeIfAbsent(sub.type, c -> new Object())) {
-            final ConcurrentSkipListSet<Sub> subs = this.subs.get(sub.type);
-            if (subs == null) return;
-            subs.removeIf(s -> s.equals(sub));
-            if (subs.isEmpty()) {
-                this.subs.remove(sub.type);
-            }
+            if (this.subs.get(sub.type) == null) return;
+            this.subs.get(sub.type).removeIf(s -> s.equals(sub));
         }
     }
 
@@ -65,9 +60,7 @@ public class Bus {
 
     public void pub(@NotNull Event e) {
         synchronized (locks.computeIfAbsent(e.getClass(), c -> new Object())) {
-            final ConcurrentSkipListSet<Sub> subs = this.subs.get(e.getClass());
-            if (subs == null) return;
-            subs
+            this.subs.computeIfAbsent(e.getClass(), c -> new ConcurrentSkipListSet<>())
                 .forEach(sub -> {
                     if (e.isCancelled()) return;
                     sub.on(e);
