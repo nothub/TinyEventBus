@@ -36,35 +36,34 @@ public class Bus {
             .collect(Collectors.toSet());
     }
 
-    public void reg(@NotNull Sub sub, @NotNull Class<?> type) {
+    public void reg(@NotNull Sub sub) {
         synchronized (lock) {
-            final ConcurrentSkipListSet<Sub> subs = this.subs
-                .computeIfAbsent(type, c -> new ConcurrentSkipListSet<>());
+            final ConcurrentSkipListSet<Sub> subs = this.subs.computeIfAbsent(sub.type, c -> new ConcurrentSkipListSet<>());
             if (subs.contains(sub)) return;
             subs.add(sub);
         }
     }
 
-    public void regAll(@NotNull Object o, @NotNull Class<?> type) {
+    public void regAll(@NotNull Object o) {
         synchronized (lock) {
-            getSubs(o).forEach(s -> reg(s, type));
+            getSubs(o).forEach(this::reg);
         }
     }
 
-    public void unreg(@NotNull Sub sub, @NotNull Class<?> type) {
+    public void unreg(@NotNull Sub sub) {
         synchronized (lock) {
-            final ConcurrentSkipListSet<Sub> subs = this.subs.get(type);
+            final ConcurrentSkipListSet<Sub> subs = this.subs.get(sub.type);
             if (subs == null) return;
             subs.removeIf(s -> s.equals(sub));
             if (subs.isEmpty()) {
-                this.subs.remove(type);
+                this.subs.remove(sub.type);
             }
         }
     }
 
-    public void unregAll(@NotNull Object o, @NotNull Class<?> type) {
+    public void unregAll(@NotNull Object o) {
         synchronized (lock) {
-            getSubs(o).forEach(s -> unreg(s, type));
+            getSubs(o).forEach(this::unreg);
         }
     }
 
