@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 public class Bus {
 
+    private final Map<Class<?>, Object> locks = new ConcurrentHashMap<>();
     private final Map<Class<?>, ConcurrentSkipListSet<Sub>> subs = new ConcurrentHashMap<>();
-    private final Object lock = new Object();
 
     private static Set<Sub> getSubs(Object obj) {
         return Arrays
@@ -37,7 +37,7 @@ public class Bus {
     }
 
     public void reg(@NotNull Sub sub) {
-        synchronized (lock) {
+        synchronized (locks.computeIfAbsent(sub.type, c -> new Object())) {
             final ConcurrentSkipListSet<Sub> subs = this.subs.computeIfAbsent(sub.type, c -> new ConcurrentSkipListSet<>());
             if (subs.contains(sub)) return;
             subs.add(sub);
@@ -45,13 +45,11 @@ public class Bus {
     }
 
     public void regAll(@NotNull Object o) {
-        synchronized (lock) {
-            getSubs(o).forEach(this::reg);
-        }
+        getSubs(o).forEach(this::reg);
     }
 
     public void unreg(@NotNull Sub sub) {
-        synchronized (lock) {
+        synchronized (locks.computeIfAbsent(sub.type, c -> new Object())) {
             final ConcurrentSkipListSet<Sub> subs = this.subs.get(sub.type);
             if (subs == null) return;
             subs.removeIf(s -> s.equals(sub));
@@ -62,13 +60,11 @@ public class Bus {
     }
 
     public void unregAll(@NotNull Object o) {
-        synchronized (lock) {
-            getSubs(o).forEach(this::unreg);
-        }
+        getSubs(o).forEach(this::unreg);
     }
 
     public void pub(@NotNull Event e) {
-        synchronized (lock) {
+        synchronized (locks.computeIfAbsent(e.getClass(), c -> new Object())) {
             final ConcurrentSkipListSet<Sub> subs = this.subs.get(e.getClass());
             if (subs == null) return;
             subs
