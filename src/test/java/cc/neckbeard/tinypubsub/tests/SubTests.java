@@ -20,37 +20,20 @@ class SubTests {
     @Test
     @DisplayName("order")
     void order() {
-        Sub<BooleanEvent> a = new Sub<BooleanEvent>(2, BooleanEvent.class) {
-            @Override
-            public void on(BooleanEvent event) {}
-        };
-        Sub<BooleanEvent> b = new Sub<BooleanEvent>(1, BooleanEvent.class) {
-            @Override
-            public void on(BooleanEvent event) {}
-        };
-        Sub<BooleanEvent> c = new Sub<BooleanEvent>(BooleanEvent.class) {
-            @Override
-            public void on(BooleanEvent event) {}
-        };
-        Sub<BooleanEvent> d = new Sub<BooleanEvent>(-1, BooleanEvent.class) {
-            @Override
-            public void on(BooleanEvent event) {}
-        };
-        Sub<BooleanEvent> e = new Sub<BooleanEvent>(-2, BooleanEvent.class) {
-            @Override
-            public void on(BooleanEvent event) {}
-        };
+        Sub<BooleanEvent> a = new Sub<>(2 , BooleanEvent.class, e -> {});
+        Sub<BooleanEvent> b = new Sub<>(1, BooleanEvent.class, e -> {});
+        Sub<BooleanEvent> c = new Sub<>(0, BooleanEvent.class, e -> {});
+        Sub<BooleanEvent> d = new Sub<>(-1, BooleanEvent.class, e -> {});
         List<Sub<BooleanEvent>> expected = new ArrayList<>();
         expected.add(a);
         expected.add(b);
         expected.add(c);
         expected.add(d);
-        expected.add(e);
         List<Sub<BooleanEvent>> random = new ArrayList<>(expected);
         Collections.shuffle(random);
         List<Sub<BooleanEvent>> sorted = new ArrayList<>(new TreeSet<>(random));
         IntStream
-            .range(0, 5)
+            .range(0, 4)
             .forEach(i -> Assertions.assertEquals(expected.get(i), sorted.get(i)));
     }
 

@@ -16,24 +16,9 @@ class AsyncTests {
 
     int runs = 0;
 
-    Sub<BooleanEvent> a = new Sub<BooleanEvent>(2, BooleanEvent.class) {
-        @Override
-        public void on(BooleanEvent event) {
-            runs++;
-        }
-    };
-    Sub<BooleanEvent> b = new Sub<BooleanEvent>(1, BooleanEvent.class) {
-        @Override
-        public void on(BooleanEvent event) {
-            runs++;
-        }
-    };
-    Sub<BooleanEvent> c = new Sub<BooleanEvent>(BooleanEvent.class) {
-        @Override
-        public void on(BooleanEvent event) {
-            runs++;
-        }
-    };
+    Sub a = new Sub(0, BooleanEvent.class, e -> runs++);
+    Sub b = new Sub(1, BooleanEvent.class, e -> runs++);
+    Sub c = new Sub(2 , BooleanEvent.class, e -> runs++);
 
     @Test
     @DisplayName("unreg while pub")

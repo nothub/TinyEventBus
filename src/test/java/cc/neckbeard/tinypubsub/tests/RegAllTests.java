@@ -12,14 +12,9 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 @Execution(ExecutionMode.CONCURRENT)
 class RegAllTests {
 
-    final boolean[] invoked = {false};
+    boolean invoked = false;
 
-    Sub<BooleanEvent> sub = new Sub<BooleanEvent>(BooleanEvent.class) {
-        @Override
-        public void on(BooleanEvent event) {
-            invoked[0] = event.bool;
-        }
-    };
+    Sub<BooleanEvent> sub = new Sub<>(BooleanEvent.class, e -> invoked = e.bool);
 
     @Test
     @DisplayName("invoke")
@@ -27,7 +22,7 @@ class RegAllTests {
         Bus bus = new Bus();
         bus.regAll(this);
         bus.pub(new BooleanEvent(true));
-        Assertions.assertTrue(invoked[0]);
+        Assertions.assertTrue(invoked);
     }
 
 }

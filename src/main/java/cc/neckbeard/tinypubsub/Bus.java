@@ -32,7 +32,7 @@ public class Bus {
                     return null;
                 })
                 .filter(Objects::nonNull)
-                .map(o -> (Sub<?>) o)
+                .map(o -> (Sub) o)
                 .collect(Collectors.toSet());
     }
 
