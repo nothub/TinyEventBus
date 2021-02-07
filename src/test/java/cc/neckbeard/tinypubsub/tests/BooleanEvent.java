@@ -1,13 +1,11 @@
 package cc.neckbeard.tinypubsub.tests;
 
-import cc.neckbeard.tinypubsub.Event;
+class BooleanEvent {
 
-class BooleanEvent extends Event {
+    final boolean value;
 
-    public boolean bool;
-
-    public BooleanEvent(boolean bool) {
-        this.bool = bool;
+    BooleanEvent(boolean value) {
+        this.value = value;
     }
 
 }
