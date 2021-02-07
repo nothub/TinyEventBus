@@ -1,6 +1,5 @@
 package cc.neckbeard.tinypubsub.tests;
 
-import cc.neckbeard.tinypubsub.Event;
 import cc.neckbeard.tinypubsub.Sub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -21,40 +20,35 @@ class SubTests {
     @Test
     @DisplayName("order")
     void order() {
-        Sub<Event> a = new Sub<Event>(2) {
+        Sub<BooleanEvent> a = new Sub<BooleanEvent>(2) {
             @Override
-            public void on(Event event) {
-            }
+            public void on(BooleanEvent event) {}
         };
-        Sub<Event> b = new Sub<Event>(1) {
+        Sub<BooleanEvent> b = new Sub<BooleanEvent>(1) {
             @Override
-            public void on(Event event) {
-            }
+            public void on(BooleanEvent event) {}
         };
-        Sub<Event> c = new Sub<Event>() {
+        Sub<BooleanEvent> c = new Sub<BooleanEvent>() {
             @Override
-            public void on(Event event) {
-            }
+            public void on(BooleanEvent event) {}
         };
-        Sub<Event> d = new Sub<Event>(-1) {
+        Sub<BooleanEvent> d = new Sub<BooleanEvent>(-1) {
             @Override
-            public void on(Event event) {
-            }
+            public void on(BooleanEvent event) {}
         };
-        Sub<Event> e = new Sub<Event>(-2) {
+        Sub<BooleanEvent> e = new Sub<BooleanEvent>(-2) {
             @Override
-            public void on(Event event) {
-            }
+            public void on(BooleanEvent event) {}
         };
-        List<Sub<Event>> expected = new ArrayList<>();
+        List<Sub<BooleanEvent>> expected = new ArrayList<>();
         expected.add(a);
         expected.add(b);
         expected.add(c);
         expected.add(d);
         expected.add(e);
-        List<Sub<Event>> random = new ArrayList<>(expected);
+        List<Sub<BooleanEvent>> random = new ArrayList<>(expected);
         Collections.shuffle(random);
-        List<Sub<Event>> sorted = new ArrayList<>(new TreeSet<>(random));
+        List<Sub<BooleanEvent>> sorted = new ArrayList<>(new TreeSet<>(random));
         IntStream
             .range(0, 5)
             .forEach(i -> Assertions.assertEquals(expected.get(i), sorted.get(i)));

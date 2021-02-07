@@ -14,10 +14,10 @@ class BusTests {
 
     final boolean[] invoked = {false};
 
-    Sub<TestEvent> sub = new Sub<TestEvent>() {
+    Sub<BooleanEvent> sub = new Sub<BooleanEvent>() {
         @Override
-        public void on(TestEvent event) {
-            invoked[0] = true;
+        public void on(BooleanEvent event) {
+            invoked[0] = event.bool;
         }
     };
 
@@ -25,8 +25,8 @@ class BusTests {
     @DisplayName("invoke")
     void invoke() {
         Bus bus = new Bus();
-        bus.reg(sub, TestEvent.class);
-        bus.pub(new TestEvent());
+        bus.reg(sub, BooleanEvent.class);
+        bus.pub(new BooleanEvent(true));
         Assertions.assertTrue(invoked[0]);
     }
 
