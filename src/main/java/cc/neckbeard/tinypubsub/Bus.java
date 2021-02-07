@@ -11,27 +11,35 @@ public class Bus {
     private final Map<Class<?>, ConcurrentSkipListSet<Sub>> subs = new ConcurrentHashMap<>();
     private final Object lock = new Object();
 
-    public void register(@NotNull Sub sub, @NotNull Class<?> clazz) {
+    public void reg(@NotNull Sub sub, @NotNull Class<?> type) {
         synchronized (lock) {
-            subs.computeIfAbsent(clazz, c -> new ConcurrentSkipListSet<>()).add(sub);
+            final ConcurrentSkipListSet<Sub> subs = this.subs
+                .computeIfAbsent(type, c -> new ConcurrentSkipListSet<>());
+            if (subs.contains(sub)) return;
+            subs.add(sub);
         }
     }
 
-    public void unregister(@NotNull Sub sub, @NotNull Class<?> clazz) {
+    public void unreg(@NotNull Sub sub, @NotNull Class<?> type) {
         synchronized (lock) {
-            subs
-                .get(clazz)
-                .stream()
-                .filter(s -> s.getClass().equals(sub.getClass()))
-                .forEach(s -> subs.get(clazz).remove(s));
+            final ConcurrentSkipListSet<Sub> subs = this.subs.get(type);
+            if (subs == null) return;
+            subs.removeIf(s -> s.equals(sub));
+            if (subs.isEmpty()) {
+                this.subs.remove(type);
+            }
         }
     }
 
-    public void post(@NotNull Event e) {
+    public void pub(@NotNull Event e) {
         synchronized (lock) {
+            final ConcurrentSkipListSet<Sub> subs = this.subs.get(e.getClass());
+            if (subs == null) return;
             subs
-                .get(e.getClass())
-                .forEach(sub -> sub.on(e));
+                .forEach(sub -> {
+                    if (e.isCancelled()) return;
+                    sub.on(e);
+                });
         }
     }
 

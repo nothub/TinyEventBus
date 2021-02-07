@@ -19,29 +19,29 @@ import java.util.stream.IntStream;
 class SubTests {
 
     @Test
-    @DisplayName("order by prio")
+    @DisplayName("order")
     void order() {
-        Sub<Event> a = new Sub<Event>(1) {
+        Sub<Event> a = new Sub<Event>(2) {
             @Override
             public void on(Event event) {
             }
         };
-        Sub<Event> b = new Sub<Event>(0) {
+        Sub<Event> b = new Sub<Event>(1) {
             @Override
             public void on(Event event) {
             }
         };
-        Sub<Event> c = new Sub<Event>(-1) {
+        Sub<Event> c = new Sub<Event>() {
             @Override
             public void on(Event event) {
             }
         };
-        Sub<Event> d = new Sub<Event>(-2) {
+        Sub<Event> d = new Sub<Event>(-1) {
             @Override
             public void on(Event event) {
             }
         };
-        Sub<Event> e = new Sub<Event>(-3) {
+        Sub<Event> e = new Sub<Event>(-2) {
             @Override
             public void on(Event event) {
             }
