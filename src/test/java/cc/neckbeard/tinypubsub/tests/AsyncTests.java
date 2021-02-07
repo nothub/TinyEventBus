@@ -10,7 +10,6 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 
 import java.util.stream.IntStream;
 
-@DisplayName("async")
 @Execution(ExecutionMode.CONCURRENT)
 class AsyncTests {
 
@@ -25,7 +24,7 @@ class AsyncTests {
     void unreg() throws InterruptedException {
 
         Bus bus = new Bus();
-        bus.regAll(this);
+        bus.regFields(this);
 
         Thread t1 = new Thread(() -> IntStream
             .range(0, 1000000)
@@ -34,7 +33,7 @@ class AsyncTests {
         Thread t2 = new Thread(() -> IntStream
             .range(0, 10000)
             .forEach(i -> {
-                bus.unregAll(this);
+                bus.unregFields(this);
                 bus.reg(a);
             }));
 

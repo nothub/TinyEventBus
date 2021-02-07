@@ -16,24 +16,24 @@ public class Bus {
     private final Map<Class<?>, ConcurrentSkipListSet<Sub>> subs = new ConcurrentHashMap<>();
 
     private static Set<Sub> getSubs(Object obj) {
-            return Arrays
-                .stream(obj.getClass().getDeclaredFields())
-                .filter(field -> field.getType().equals(Sub.class))
-                .map(field -> {
-                    boolean access = field.isAccessible();
-                    field.setAccessible(true);
-                    try {
-                        return field.get(obj);
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } finally {
-                        field.setAccessible(access);
-                    }
-                    return null;
-                })
-                .filter(Objects::nonNull)
-                .map(o -> (Sub) o)
-                .collect(Collectors.toSet());
+        return Arrays
+            .stream(obj.getClass().getDeclaredFields())
+            .filter(field -> field.getType().equals(Sub.class))
+            .map(field -> {
+                boolean access = field.isAccessible();
+                field.setAccessible(true);
+                try {
+                    return field.get(obj);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } finally {
+                    field.setAccessible(access);
+                }
+                return null;
+            })
+            .filter(Objects::nonNull)
+            .map(o -> (Sub) o)
+            .collect(Collectors.toSet());
     }
 
     public void reg(@NotNull Sub sub) {
@@ -44,7 +44,7 @@ public class Bus {
         }
     }
 
-    public void regAll(@NotNull Object o) {
+    public void regFields(@NotNull Object o) {
         getSubs(o).forEach(this::reg);
     }
 
@@ -59,7 +59,7 @@ public class Bus {
         }
     }
 
-    public void unregAll(@NotNull Object o) {
+    public void unregFields(@NotNull Object o) {
         getSubs(o).forEach(this::unreg);
     }
 
