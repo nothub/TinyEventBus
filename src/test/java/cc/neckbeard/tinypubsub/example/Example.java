@@ -10,7 +10,7 @@ public class Example {
 
     @Sub(prio = 100)
     public void first(Event e) {
-        if (e.str.equalsIgnoreCase("foobar")) e.cancelled = true;
+        if (e.str.equals("cancel")) e.cancelled = true;
     }
 
     @Sub
@@ -27,15 +27,9 @@ public class Example {
         System.out.println(msg);
 
         bus.del(this);
-        bus.pub(new Event("foobar"));
+        bus.pub(new Event("cancel"));
         System.out.println(msg);
 
-    }
-
-    private static class Main {
-        public static void main(String[] args) {
-            new Example().run();
-        }
     }
 
     private static class Event implements Cancellable {
@@ -52,6 +46,12 @@ public class Example {
             return cancelled;
         }
 
+    }
+
+    private static class Main {
+        public static void main(String[] args) {
+            new Example().run();
+        }
     }
 
 }
