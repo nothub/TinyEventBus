@@ -27,7 +27,10 @@ public class Sub<T> implements Comparable<Sub<T>> {
         if (sub.prio != prio) {
             return Integer.compare(sub.prio, prio);
         }
-        return Integer.compare(sub.consumer.hashCode(), consumer.hashCode());
+        if (sub.consumer.hashCode() != consumer.hashCode()) {
+            return Integer.compare(sub.consumer.hashCode(), consumer.hashCode());
+        }
+        return Integer.compare(sub.hashCode(), hashCode());
     }
 
 }
