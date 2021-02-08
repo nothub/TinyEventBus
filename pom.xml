@@ -6,7 +6,7 @@
 
     <groupId>cc.neckbeard</groupId>
     <artifactId>TinyPubSub</artifactId>
-    <version>0.2.3</version>
+    <version>0.3.0</version>
 
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
@@ -43,6 +43,11 @@
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>20.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.jodah</groupId>
+            <artifactId>typetools</artifactId>
+            <version>0.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

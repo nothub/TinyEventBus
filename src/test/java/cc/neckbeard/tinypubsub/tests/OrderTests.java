@@ -17,39 +17,21 @@ class OrderTests {
         str = "";
     }
 
-    @Sub
-    public void subC1(Object ignored) {
-        str += "C";
-    }
-
-    @Sub
-    public void subC2(Object ignored) {
-        str += "C";
-    }
-
-    @Sub(prio = -2)
-    public void subE(Object ignored) {
-        str += "E";
-    }
-
-    @Sub(prio = 2)
-    public void subA(Object ignored) {
-        str += "A";
-    }
-
-    @Sub(prio = 1)
-    public void subB(Object ignored) {
-        str += "B";
-    }
-
-    @Sub(prio = -1)
-    public void subD(Object ignored) {
-        str += "D";
-    }
+    Sub<Object> subC1 = new Sub<>(0, e -> str += "C");
+    Sub<Object> subC2 = new Sub<>(0, e -> str += "C");
+    Sub<Object> subE = new Sub<>(-2, e -> str += "E");
+    Sub<Object> subA = new Sub<>(2, e -> str += "A");
+    Sub<Object> subB = new Sub<>(1, e -> str += "B");
+    Sub<Object> subD = new Sub<>(-1, e -> str += "D");
 
     @Test
     void order() {
-        bus.reg(this);
+        bus.reg(subC1);
+        bus.reg(subC2);
+        bus.reg(subE);
+        bus.reg(subA);
+        bus.reg(subB);
+        bus.reg(subD);
         bus.pub(new Object());
         Assertions.assertEquals("ABCCDE", str);
     }

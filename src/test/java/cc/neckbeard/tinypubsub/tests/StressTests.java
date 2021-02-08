@@ -23,36 +23,21 @@ class StressTests {
         hits = 0;
     }
 
-    @Sub(prio = Integer.MAX_VALUE)
-    public void subA(Object ignored) {
-        hits++;
-    }
-
-    @Sub(prio = 42)
-    public void subB(Object ignored) {
-        hits++;
-    }
-
-    @Sub
-    public void subC(Object ignored) {
-        hits++;
-    }
-
-    @Sub(prio = -42)
-    public void subD(Object ignored) {
-        hits++;
-    }
-
-    @Sub(prio = Integer.MIN_VALUE)
-    public void subE(Object ignored) {
-        hits++;
-    }
+    Sub<Object> subA = new Sub<>(Integer.MAX_VALUE, o -> hits++);
+    Sub<Object> subB = new Sub<>(42, o -> hits++);
+    Sub<Object> subC = new Sub<>(0, o -> hits++);
+    Sub<Object> subD = new Sub<>(-42, o -> hits++);
+    Sub<Object> subE = new Sub<>(Integer.MIN_VALUE, o -> hits++);
 
     @Test
     @DisplayName("pub 2m")
     void pub_() {
         final int runs = 2_000_000;
-        bus.reg(this);
+        bus.reg(subA);
+        bus.reg(subB);
+        bus.reg(subC);
+        bus.reg(subD);
+        bus.reg(subE);
         IntStream
             .range(0, runs)
             .forEach(i -> bus.pub(new Object()));
@@ -66,7 +51,11 @@ class StressTests {
         IntStream
             .range(0, runs)
             .forEach(i -> {
-                bus.reg(this);
+                bus.reg(subA);
+                bus.reg(subB);
+                bus.reg(subC);
+                bus.reg(subD);
+                bus.reg(subE);
                 bus.pub(new Object());
             });
         Assertions.assertEquals(5 * runs, hits);
@@ -79,9 +68,17 @@ class StressTests {
         IntStream
             .range(0, runs)
             .forEach(i -> {
-                bus.reg(this);
+                bus.reg(subA);
+                bus.reg(subB);
+                bus.reg(subC);
+                bus.reg(subD);
+                bus.reg(subE);
                 bus.pub(new Object());
-                bus.del(this);
+                bus.del(subA);
+                bus.del(subB);
+                bus.del(subC);
+                bus.del(subD);
+                bus.del(subE);
             });
         Assertions.assertEquals(5 * runs, hits);
     }
