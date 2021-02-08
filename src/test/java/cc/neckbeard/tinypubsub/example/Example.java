@@ -8,26 +8,22 @@ public class Example {
 
     private static String msg = "";
 
-    @Sub(prio = 100)
-    public void first(Event e) {
-        if (e.str.equals("cancel")) e.cancelled = true;
-    }
+    Sub<Event> first = new Sub<>(0, e -> msg = e.str);
 
-    @Sub
-    public void second(Event e) {
-        msg = e.str;
-    }
+    Sub<Event> second = new Sub<>(1, e -> {
+        if (e.str.equals("foobar")) e.cancelled = true;
+    });
 
     void run() {
 
         final Bus bus = new Bus();
 
-        bus.reg(this);
+        bus.reg(first);
         bus.pub(new Event("Hello World!"));
         System.out.println(msg);
 
-        bus.del(this);
-        bus.pub(new Event("cancel"));
+        bus.reg(second);
+        bus.pub(new Event("foobar"));
         System.out.println(msg);
 
     }

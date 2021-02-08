@@ -15,10 +15,7 @@ class StaticTests {
     private static Bus bus;
     private static boolean invoked;
 
-    @Sub
-    public static void sub(BooleanEvent e) {
-        invoked = e.value;
-    }
+    Sub<BooleanEvent> sub = new Sub<>(0, e -> invoked = e.value);
 
     @BeforeAll
     static void setUp() {
@@ -29,7 +26,7 @@ class StaticTests {
     @Test
     @Order(0)
     void reg() {
-        bus.reg(this);
+        bus.reg(sub);
         bus.pub(new BooleanEvent(true));
         Assertions.assertTrue(invoked);
     }
@@ -37,7 +34,7 @@ class StaticTests {
     @Test
     @Order(1)
     void del() {
-        bus.del(this);
+        bus.del(sub);
         bus.pub(new BooleanEvent(true));
         Assertions.assertFalse(invoked);
     }

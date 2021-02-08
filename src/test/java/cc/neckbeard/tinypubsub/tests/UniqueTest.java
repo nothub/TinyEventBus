@@ -20,15 +20,12 @@ class UniqueTest {
         hits = 0;
     }
 
-    @Sub
-    public void sub(Object ignored) {
-        hits++;
-    }
+    Sub<Object> sub = new Sub<>(0, o -> hits++);
 
     @Test
     void multireg() {
-        bus.reg(this);
-        bus.reg(this);
+        bus.reg(sub);
+        bus.reg(sub);
         bus.pub(new Object());
         Assertions.assertEquals(1, hits);
     }
