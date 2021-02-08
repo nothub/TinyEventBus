@@ -22,7 +22,13 @@ class Container implements Comparable<Container> {
 
     @Override
     public int compareTo(@NotNull Container container) {
-        return container.prio == prio ? Integer.compare(container.method.hashCode(), method.hashCode()) : Integer.compare(container.prio, prio);
+        if (container.prio != prio) {
+            return Integer.compare(container.prio, prio);
+        }
+        if (container.method.hashCode() != method.hashCode()) {
+            return Integer.compare(container.method.hashCode(), method.hashCode());
+        }
+        return Integer.compare(container.parent.hashCode(), parent.hashCode());
     }
 
 }

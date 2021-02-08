@@ -6,7 +6,7 @@
 
     <groupId>cc.neckbeard</groupId>
     <artifactId>TinyPubSub</artifactId>
-    <version>0.2.2</version>
+    <version>0.2.3</version>
 
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
