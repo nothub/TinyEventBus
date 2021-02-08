@@ -1,4 +1,4 @@
-package cc.neckbeard.tinypubsub;
+package tests;
 
 class BooleanEvent {
 

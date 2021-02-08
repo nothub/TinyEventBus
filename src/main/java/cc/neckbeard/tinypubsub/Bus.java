@@ -11,16 +11,30 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Bus {
 
     private final Map<Class<?>, ConcurrentSkipListSet<Container>> subs = new ConcurrentHashMap<>();
 
-    public void reg(@NotNull Object parent) {
-        Arrays
+    @NotNull
+    private static Stream<Method> parentSubs(@NotNull Object parent) {
+        return Arrays
             .stream(parent.getClass().getDeclaredMethods())
             .filter(m -> m.isAnnotationPresent(Sub.class))
-            .filter(m -> m.getParameterCount() == 1)
+            .filter(m -> m.getParameterCount() == 1);
+    }
+
+    private boolean isRegistered(Class<?> type, Object parent) {
+        return subs.get(type) != null && subs
+            .get(type)
+            .stream()
+            .anyMatch(container -> container.parent.equals(parent));
+    }
+
+    public void reg(@NotNull Object parent) {
+        parentSubs(parent)
+            .filter(m -> !isRegistered(m.getParameterTypes()[0], parent))
             .collect(Collectors.toMap(m -> m, m -> m.getParameterTypes()[0]))
             .forEach((m, t) -> reg(m, t, parent));
     }
@@ -42,16 +56,11 @@ public class Bus {
                     type,
                     handle,
                     parent,
-                    Modifier.isStatic(method.getModifiers())
-                )
-            );
+                    Modifier.isStatic(method.getModifiers())));
     }
 
     public void del(@NotNull Object parent) {
-        Arrays
-            .stream(parent.getClass().getDeclaredMethods())
-            .filter(m -> m.isAnnotationPresent(Sub.class))
-            .filter(m -> m.getParameterCount() == 1)
+        parentSubs(parent)
             .map(m -> m.getParameterTypes()[0])
             .forEach(t -> del(t, parent));
     }

@@ -1,5 +1,7 @@
-package cc.neckbeard.tinypubsub;
+package tests;
 
+import cc.neckbeard.tinypubsub.Bus;
+import cc.neckbeard.tinypubsub.Sub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Order;
@@ -8,13 +10,13 @@ import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 
 @Execution(ExecutionMode.SAME_THREAD)
-class StaticTests {
+class InstanceTests {
 
     private static Bus bus;
     private static boolean invoked;
 
     @Sub
-    public static void sub(BooleanEvent e) {
+    public void sub(BooleanEvent e) {
         invoked = e.value;
     }
 

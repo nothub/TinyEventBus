@@ -1,5 +1,7 @@
-package cc.neckbeard.tinypubsub;
+package tests;
 
+import cc.neckbeard.tinypubsub.Bus;
+import cc.neckbeard.tinypubsub.Sub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -15,7 +17,7 @@ class OrderTests {
         str = "";
     }
 
-    @Sub(prio = 0)
+    @Sub
     public void subC(Object ignored) {
         str += "C";
     }

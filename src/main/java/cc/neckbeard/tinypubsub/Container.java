@@ -4,15 +4,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.invoke.MethodHandle;
 
-public class Container implements Comparable<Container> {
+class Container implements Comparable<Container> {
 
-    protected final int prio;
-    protected final Class<?> type;
-    protected final MethodHandle handle;
-    protected final Object parent;
-    protected final boolean statik;
+    final int prio;
+    final Class<?> type;
+    final MethodHandle handle;
+    final Object parent;
+    final boolean statik;
 
-    protected Container(int prio, @NotNull Class<?> type, @NotNull MethodHandle handle, @NotNull Object parent, boolean statik) {
+    Container(int prio, @NotNull Class<?> type, @NotNull MethodHandle handle, @NotNull Object parent, boolean statik) {
         this.prio = prio;
         this.type = type;
         this.handle = handle;
