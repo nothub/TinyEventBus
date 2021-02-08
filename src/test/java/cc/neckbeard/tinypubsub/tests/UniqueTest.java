@@ -1,4 +1,4 @@
-package tests;
+package cc.neckbeard.tinypubsub.tests;
 
 import cc.neckbeard.tinypubsub.Bus;
 import cc.neckbeard.tinypubsub.Sub;

@@ -1,4 +1,4 @@
-package tests;
+package cc.neckbeard.tinypubsub.tests;
 
 import cc.neckbeard.tinypubsub.Bus;
 import cc.neckbeard.tinypubsub.Sub;
@@ -18,7 +18,12 @@ class OrderTests {
     }
 
     @Sub
-    public void subC(Object ignored) {
+    public void subC1(Object ignored) {
+        str += "C";
+    }
+
+    @Sub
+    public void subC2(Object ignored) {
         str += "C";
     }
 
@@ -46,7 +51,7 @@ class OrderTests {
     void order() {
         bus.reg(this);
         bus.pub(new Object());
-        Assertions.assertEquals("ABCDE", str);
+        Assertions.assertEquals("ABCCDE", str);
     }
 
 }
