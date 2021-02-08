@@ -32,8 +32,11 @@ public class Bus {
     }
 
     public void reg(@NotNull Object parent) {
+        reg(parent, false);
+    }
+
+    public void reg(@NotNull Object parent, boolean duplicates) {
         parentSubs(parent)
-            .filter(m -> !isRegistered(m.getParameterTypes()[0], parent))
             .collect(Collectors.toMap(m -> m, m -> m.getParameterTypes()[0]))
             .forEach((m, t) -> reg(m, t, parent));
     }
@@ -70,11 +73,11 @@ public class Bus {
             .filter(m -> m.getParameterCount() == 1);
     }
 
-    private boolean isRegistered(Class<?> type, Object parent) {
+    private boolean isRegistered(Class<?> type, @NotNull Object parent, Method m) {
         return subs.get(type) != null && subs
             .get(type)
             .stream()
-            .anyMatch(container -> container.parent.equals(parent));
+            .anyMatch(container -> container.parent.equals(parent) && container.method.equals(m));
     }
 
 }
