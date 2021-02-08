@@ -2,70 +2,62 @@ package cc.neckbeard.tinypubsub;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.stream.Collectors;
 
 public class Bus {
 
-    private final Map<Class<?>, Object> locks = new ConcurrentHashMap<>();
-    private final Map<Class<?>, ConcurrentSkipListSet<Sub>> subs = new ConcurrentHashMap<>();
+    private final Map<Class<?>, ConcurrentSkipListSet<Container>> subs = new ConcurrentHashMap<>();
 
-    private static Set<Sub> getSubs(Object obj) {
-        return Arrays
-            .stream(obj.getClass().getDeclaredFields())
-            .filter(field -> field.getType().equals(Sub.class))
-            .map(field -> {
-                boolean access = field.isAccessible();
-                field.setAccessible(true);
+    public void reg(@NotNull Object parent) {
+
+        List<Method> declared = Arrays.asList(parent.getClass().getDeclaredMethods());
+
+        Map<Method, Class<?>> methods = declared.stream()
+            .filter(m -> m.isAnnotationPresent(Sub.class))
+            .collect(Collectors.toSet()).stream()
+            .filter(m -> !Modifier.isStatic(m.getModifiers()))
+            .collect(Collectors.toSet()).stream()
+            .filter(m -> m.getParameterCount() == 1)
+            .collect(Collectors.toSet()).stream()
+            .collect(Collectors.toMap(m -> m, m -> m.getParameterTypes()[0]));
+
+        methods.forEach((m, c) -> {
+            m.setAccessible(true);
+            try {
+                subs
+                    .computeIfAbsent(c, dfault -> new ConcurrentSkipListSet<>())
+                    .add(
+                        new Container(
+                            m.getAnnotation(Sub.class).prio(),
+                            c,
+                            MethodHandles.lookup().unreflect(m)
+                        )
+                    );
+            } catch (IllegalAccessException e) {
+                throw new IllegalStateException(e.getMessage());
+            }
+        });
+
+    }
+
+    public void pub(@NotNull Object e) {
+        subs.computeIfAbsent(e.getClass(), dfault -> new ConcurrentSkipListSet<>())
+            .forEach(sub -> {
+                if (e instanceof Cancellable && ((Cancellable) e).isCancelled()) return;
                 try {
-                    return field.get(obj);
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                } finally {
-                    field.setAccessible(access);
+                    sub.handle.invoke(e);
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
                 }
-                return null;
-            })
-            .filter(Objects::nonNull)
-            .map(o -> (Sub) o)
-            .collect(Collectors.toSet());
-    }
-
-    public void reg(@NotNull Sub sub) {
-        synchronized (locks.computeIfAbsent(sub.type, c -> new Object())) {
-            if (this.subs.computeIfAbsent(sub.type, c -> new ConcurrentSkipListSet<>()).contains(sub)) return;
-            this.subs.get(sub.type).add(sub);
-        }
-    }
-
-    public void regFields(@NotNull Object o) {
-        getSubs(o).forEach(this::reg);
-    }
-
-    public void unreg(@NotNull Sub sub) {
-        synchronized (locks.computeIfAbsent(sub.type, c -> new Object())) {
-            if (this.subs.get(sub.type) == null) return;
-            this.subs.get(sub.type).removeIf(s -> s.equals(sub));
-        }
-    }
-
-    public void unregFields(@NotNull Object o) {
-        getSubs(o).forEach(this::unreg);
-    }
-
-    public void pub(@NotNull Event e) {
-        synchronized (locks.computeIfAbsent(e.getClass(), c -> new Object())) {
-            this.subs.computeIfAbsent(e.getClass(), c -> new ConcurrentSkipListSet<>())
-                .forEach(sub -> {
-                    if (e.isCancelled()) return;
-                    sub.consumer.accept(e);
-                });
-        }
+            });
     }
 
 }
