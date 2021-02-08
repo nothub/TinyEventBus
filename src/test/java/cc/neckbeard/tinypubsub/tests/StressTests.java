@@ -49,9 +49,9 @@ class StressTests {
     }
 
     @Test
-    @DisplayName("pub 1m")
+    @DisplayName("pub 2m")
     void pub_() {
-        final int runs = 1_000_000;
+        final int runs = 2_000_000;
         bus.reg(this);
         IntStream
             .range(0, runs)
