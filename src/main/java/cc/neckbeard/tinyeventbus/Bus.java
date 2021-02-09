@@ -20,7 +20,7 @@ public class Bus {
     private static Set<Sub<?>> getSubFields(Object parent) {
         return Arrays.stream(parent.getClass().getDeclaredFields())
             .filter(field -> field.getType().equals(Sub.class))
-            .filter(field -> Sub.class.isAssignableFrom(field.getClass()))
+            .filter(field -> Sub.class.isAssignableFrom(field.getType()))
             .map(subFieldConverter(parent))
             .filter(Objects::nonNull)
             .collect(Collectors.toSet());
