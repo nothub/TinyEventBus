@@ -1,4 +1,4 @@
-A tiny and fast pubsub implementation with priorities and canceling.
+A tiny and fast pubsub implementation with subscriber priorities and event canceling.
 
 Check the
 [example](https://github.com/nothub/TinyEventBus/blob/master/src/test/java/cc/neckbeard/tinyeventbus/example/Example.java)
@@ -6,31 +6,37 @@ for a usage snippet.
 
 ---
 
-[benchmarks](https://github.com/nothub/TinyEventBus/tree/master/src/test/java/cc/neckbeard/tinyeventbus/benchmark) (
-openjdk 8, xeon e3-1230 3.30ghz):
+[benchmarks](https://github.com/nothub/TinyEventBus/blob/1.0.0/src/test/java/cc/neckbeard/tinyeventbus/tests/BenchmarkTests.java) done in github ci:
 
 ```
-pub
+benchmark: bus.reg
 subs: 1_000
+6,021,031ns (6ms)
+
+benchmark: bus.reg
+subs: 10_000
+12,062,863ns (12ms)
+
+benchmark: bus.del
+subs: 1_000
+3,801,683ns (3ms)
+
+benchmark: bus.del
+subs: 10_000
+14,857,024ns (14ms)
+
+benchmark: bus.pub
 pubs: 1_000
-47,681,726ns (47ms)
-```
+subs: 1_000
+41,483,604ns (41ms)
 
-```
-pub
+benchmark: bus.pub
+pubs: 100
+subs: 10_000
+31,109,278ns (31ms)
+
+benchmark: bus.pub
+pubs: 10_000
 subs: 100
-pubs: 100_000
-58,357,624ns (58ms)
-```
-
-```
-reg
-subs: 1_000
-2,740,465ns (2ms)
-```
-
-```
-del
-subs: 1_000
-7,297,579ns (7ms)
+28,044,711ns (28ms)
 ```
