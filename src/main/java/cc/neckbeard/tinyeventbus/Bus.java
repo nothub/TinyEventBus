@@ -20,20 +20,21 @@ public class Bus {
     private static Set<Sub<?>> getSubFields(Object parent) {
         return Arrays.stream(parent.getClass().getDeclaredFields())
             .filter(field -> field.getType().equals(Sub.class))
+            .filter(field -> Sub.class.isAssignableFrom(field.getClass()))
             .map(subFieldConverter(parent))
-            .map(o -> (Sub<?>) o)
             .filter(Objects::nonNull)
             .collect(Collectors.toSet());
     }
 
     @NotNull
-    private static Function<Field, Object> subFieldConverter(Object parent) {
+    private static Function<Field, Sub<?>> subFieldConverter(Object parent) {
         return field -> {
             boolean accessible = field.isAccessible(); // jdk 9+: boolean accessible = field.canAccess(Bus.class);
             field.setAccessible(true);
             try {
-                return field.get(parent);
+                return (Sub<?>) field.get(parent);
             } catch (IllegalAccessException e) {
+                e.printStackTrace();
                 return null;
             } finally {
                 field.setAccessible(accessible);
