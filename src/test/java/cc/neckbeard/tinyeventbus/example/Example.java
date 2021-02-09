@@ -1,53 +1,44 @@
 package cc.neckbeard.tinyeventbus.example;
 
 import cc.neckbeard.tinyeventbus.Bus;
-import cc.neckbeard.tinyeventbus.Cancellable;
 import cc.neckbeard.tinyeventbus.Sub;
 
-public class Example {
+import java.util.function.Consumer;
 
-    private static String msg = "";
+class Example {
 
-    Sub<Event> first = new Sub<>( e -> msg = e.str);
+    // create event consumer
+    final Consumer<Event> eventConsumer = e -> System.out.println(e.str);
+    // create subscriber
+    Sub<Event> sub = new Sub<>(eventConsumer);
 
-    Sub<Event> second = new Sub<>(1, e -> {
-        if (e.str.equals("foobar")) e.cancelled = true;
-    });
+    // create subscriber with inline consumer
+    Sub<Event> prioSub = new Sub<>(e -> {
+        if (e.str.equals("foobar")) e.canceled = true;
+    }, 50); // priority is defined as integer
+
+    // create subscriber with convenience method
+    Sub<Event> highPrioSub = Sub.of(e -> e.str = ":3", 100); // higher priority comes first
 
     void run() {
 
-        final Bus bus = new Bus();
+        // create bus instance
+        Bus bus = new Bus();
 
-        bus.reg(first);
+        // register subscriber
+        bus.reg(sub);
+        // publish event
         bus.pub(new Event("Hello World!"));
-        System.out.println(msg);
+        // prints: Hello World!
 
-        bus.reg(second);
+        bus.reg(prioSub);
         bus.pub(new Event("foobar"));
-        System.out.println(msg);
+        // event is canceled
 
-    }
+        bus.reg(highPrioSub);
+        bus.pub(new Event("foobar"));
+        // prints: :3
 
-    private static class Event implements Cancellable {
-
-        public final String str;
-        public boolean cancelled;
-
-        public Event(String str) {
-            this.str = str;
-        }
-
-        @Override
-        public boolean isCancelled() {
-            return cancelled;
-        }
-
-    }
-
-    private static class Main {
-        public static void main(String[] args) {
-            new Example().run();
-        }
     }
 
 }

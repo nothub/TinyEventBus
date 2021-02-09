@@ -12,6 +12,17 @@ import java.util.concurrent.ConcurrentSkipListSet;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * Central event manager, used to publish events and, register/unregister subscribers.
+ * <br>
+ * Any {@link Object} can be used to represent an event.
+ * Events are identified by their {@link Class} type.
+ * <br>
+ * Multiple {@link Sub}s can be registered to listen to one event type.
+ * The processing order of registered {@link Sub}s is determined by their {@link Sub#priority}.
+ *
+ * @author nothub
+ */
 public class Bus {
 
     private final Map<Class<?>, ConcurrentSkipListSet<Sub<?>>> subs = new ConcurrentHashMap<>();
@@ -42,35 +53,69 @@ public class Bus {
         };
     }
 
-    public void reg(Sub<?> sub) {
-        subs
-            .computeIfAbsent(sub.type, clazz -> new ConcurrentSkipListSet<>())
-            .add(sub);
-    }
-
-    public void del(Sub<?> sub) {
-        final ConcurrentSkipListSet<Sub<?>> subs = this.subs.get(sub.type);
-        if (subs == null) return;
-        subs.remove(sub);
-    }
-
-    public void pub(Object obj) {
-        final ConcurrentSkipListSet<Sub<?>> subs = this.subs.get(obj.getClass());
+    /**
+     * Publishes an event.
+     * If the published event implements the {@link Cancelable} interface,
+     * additional processing can be stopped prematurely by any invoked {@link Sub}.
+     *
+     * @param event Event to be published.
+     */
+    public void pub(Object event) {
+        final ConcurrentSkipListSet<Sub<?>> subs = this.subs.get(event.getClass());
         if (subs == null) return;
         subs.forEach(sub -> {
-            if (obj instanceof Cancellable && ((Cancellable) obj).isCancelled()) return;
-            sub.accept(obj);
+            if (event instanceof Cancelable && ((Cancelable) event).isCanceled()) return;
+            sub.accept(event);
         });
     }
 
+    /**
+     * Registers a {@link Sub}.
+     *
+     * @param sub {@link Sub} to be registered.
+     * @see #reg(Object)
+     */
+    public void reg(Sub<?> sub) {
+        subs
+            .computeIfAbsent(sub.eventType, clazz -> new ConcurrentSkipListSet<>())
+            .add(sub);
+    }
+
+
+    /**
+     * Registers all {@link Sub} field members of the parent {@link Object}.
+     *
+     * @param parent Parent object of {@link Sub} field members to be registered.
+     * @see #reg(Sub)
+     */
     public void reg(Object parent) {
         getSubFields(parent)
             .forEach(this::reg);
     }
 
-    public void del(Object parent) {
+
+    /**
+     * Unregisters a {@link Sub}.
+     *
+     * @param sub Subscriber to be unregistered.
+     * @see #unreg(Object)
+     */
+    public void unreg(Sub<?> sub) {
+        final ConcurrentSkipListSet<Sub<?>> subs = this.subs.get(sub.eventType);
+        if (subs == null) return;
+        subs.remove(sub);
+    }
+
+
+    /**
+     * Unregisters all {@link Sub} field members of the parent {@link Object}.
+     *
+     * @param parent Parent object of {@link Sub} field members to be unregistered.
+     * @see #unreg(Sub)
+     */
+    public void unreg(Object parent) {
         getSubFields(parent)
-            .forEach(this::del);
+            .forEach(this::unreg);
     }
 
 }

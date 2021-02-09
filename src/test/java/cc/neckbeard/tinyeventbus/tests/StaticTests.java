@@ -4,7 +4,6 @@ import cc.neckbeard.tinyeventbus.Bus;
 import cc.neckbeard.tinyeventbus.Sub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
@@ -32,7 +31,7 @@ class StaticTests {
 
     @Test
     void del() {
-        bus.del(sub);
+        bus.unreg(sub);
         bus.pub(new BooleanEvent(true));
         Assertions.assertFalse(invoked);
     }

@@ -32,7 +32,7 @@ class ClassRegTests {
         bus.reg(this);
         bus.pub(new BooleanEvent(true));
         Assertions.assertEquals(6, hits);
-        bus.del(this);
+        bus.unreg(this);
         bus.pub(new BooleanEvent(true));
         Assertions.assertEquals(6, hits);
     }
@@ -51,16 +51,28 @@ class ClassRegTests {
         bus.reg(innerFinalClass);
         bus.reg(innerStaticClassPriv);
         bus.reg(innerStaticClassProt);
+        bus.reg(InnerStaticClassPriv2.subPriv);
+        bus.reg(InnerStaticClassPriv2.subProt);
+        bus.reg(InnerStaticClassPriv2.sub);
+        bus.reg(InnerStaticClassProt2.subPriv);
+        bus.reg(InnerStaticClassProt2.subProt);
+        bus.reg(InnerStaticClassProt2.sub);
         bus.pub(new BooleanEvent(true));
-        Assertions.assertEquals(18, hits);
-        bus.del(innerClassPriv);
-        bus.del(innerClassProt);
-        bus.del(InnerClass);
-        bus.del(innerFinalClass);
-        bus.del(innerStaticClassPriv);
-        bus.del(innerStaticClassProt);
+        Assertions.assertEquals(24, hits);
+        bus.unreg(innerClassPriv);
+        bus.unreg(innerClassProt);
+        bus.unreg(InnerClass);
+        bus.unreg(innerFinalClass);
+        bus.unreg(innerStaticClassPriv);
+        bus.unreg(innerStaticClassProt);
+        bus.unreg(InnerStaticClassPriv2.subPriv);
+        bus.unreg(InnerStaticClassPriv2.subProt);
+        bus.unreg(InnerStaticClassPriv2.sub);
+        bus.unreg(InnerStaticClassProt2.subPriv);
+        bus.unreg(InnerStaticClassProt2.subProt);
+        bus.unreg(InnerStaticClassProt2.sub);
         bus.pub(new BooleanEvent(true));
-        Assertions.assertEquals(18, hits);
+        Assertions.assertEquals(24, hits);
     }
 
     private class InnerClassPriv {
@@ -97,6 +109,18 @@ class ClassRegTests {
         private Sub<BooleanEvent> subPriv = Sub.of(e -> hits++);
         protected Sub<BooleanEvent> subProt = Sub.of(e -> hits++);
         Sub<BooleanEvent> sub = Sub.of(e -> hits++);
+    }
+
+    private static class InnerStaticClassPriv2 {
+        private static final Sub<BooleanEvent> subPriv = Sub.of(e -> hits++);
+        protected static Sub<BooleanEvent> subProt = Sub.of(e -> hits++);
+        static Sub<BooleanEvent> sub = Sub.of(e -> hits++);
+    }
+
+    protected static class InnerStaticClassProt2 {
+        private static final Sub<BooleanEvent> subPriv = Sub.of(e -> hits++);
+        protected static Sub<BooleanEvent> subProt = Sub.of(e -> hits++);
+        static Sub<BooleanEvent> sub = Sub.of(e -> hits++);
     }
 
 }

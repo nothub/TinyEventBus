@@ -23,11 +23,11 @@ class StressTests {
         hits = 0;
     }
 
-    Sub<Object> subA = Sub.of( o -> hits++, Integer.MAX_VALUE);
+    Sub<Object> subA = Sub.of(o -> hits++, Integer.MAX_VALUE);
     Sub<Object> subB = new Sub<>(o -> hits++, 42);
     Sub<Object> subC = Sub.of(o -> hits++);
     Sub<Object> subD = new Sub<>(o -> hits++, -42);
-    Sub<Object> subE = Sub.of( o -> hits++, Integer.MIN_VALUE);
+    Sub<Object> subE = Sub.of(o -> hits++, Integer.MIN_VALUE);
 
     @Test
     @DisplayName("pub 2m")
@@ -74,11 +74,11 @@ class StressTests {
                 bus.reg(subD);
                 bus.reg(subE);
                 bus.pub(new Object());
-                bus.del(subA);
-                bus.del(subB);
-                bus.del(subC);
-                bus.del(subD);
-                bus.del(subE);
+                bus.unreg(subA);
+                bus.unreg(subB);
+                bus.unreg(subC);
+                bus.unreg(subD);
+                bus.unreg(subE);
             });
         Assertions.assertEquals(5 * runs, hits);
     }

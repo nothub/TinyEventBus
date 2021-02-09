@@ -3,8 +3,6 @@ package cc.neckbeard.tinyeventbus.tests;
 import cc.neckbeard.tinyeventbus.Bus;
 import cc.neckbeard.tinyeventbus.Sub;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
@@ -54,7 +52,7 @@ public class BenchmarkTests {
 
         List<Sub<String>> listenerContainers = new ArrayList<>();
 
-        IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(0, s -> {
+        IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(s -> {
         })));
 
         final long start = System.nanoTime();
@@ -79,7 +77,7 @@ public class BenchmarkTests {
 
         List<Sub<String>> listenerContainers = new ArrayList<>();
 
-        IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(0, s -> {
+        IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(s -> {
         })));
 
         IntStream
@@ -90,7 +88,7 @@ public class BenchmarkTests {
 
         IntStream
             .range(0, subs)
-            .forEach(i -> bus.del(listenerContainers.get(i)));
+            .forEach(i -> bus.unreg(listenerContainers.get(i)));
 
         final long end = System.nanoTime() - start;
 
@@ -109,7 +107,7 @@ public class BenchmarkTests {
 
         List<Sub<String>> listenerContainers = new ArrayList<>();
 
-        IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(0, s -> hits++)));
+        IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(s -> hits++)));
 
         IntStream
             .range(0, subs)
