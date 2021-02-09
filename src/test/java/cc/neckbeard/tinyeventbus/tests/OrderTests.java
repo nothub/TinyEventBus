@@ -1,7 +1,7 @@
-package cc.neckbeard.tinypubsub.tests;
+package cc.neckbeard.tinyeventbus.tests;
 
-import cc.neckbeard.tinypubsub.Bus;
-import cc.neckbeard.tinypubsub.Sub;
+import cc.neckbeard.tinyeventbus.Bus;
+import cc.neckbeard.tinyeventbus.Sub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,18 +11,18 @@ class OrderTests {
     private static Bus bus;
     private static String str;
 
+    Sub<Object> subC1 = new Sub<>(e -> str += "C");
+    Sub<Object> subC2 = Sub.of(e -> str += "C");
+    Sub<Object> subE = new Sub<>(e -> str += "E", -2);
+    Sub<Object> subA = Sub.of(e -> str += "A", 2);
+    Sub<Object> subB = Sub.of(e -> str += "B", 1);
+    Sub<Object> subD = new Sub<>(e -> str += "D", -1);
+
     @BeforeAll
     static void setUp() {
         bus = new Bus();
         str = "";
     }
-
-    Sub<Object> subC1 = new Sub<>(0, e -> str += "C");
-    Sub<Object> subC2 = new Sub<>(0, e -> str += "C");
-    Sub<Object> subE = new Sub<>(-2, e -> str += "E");
-    Sub<Object> subA = new Sub<>(2, e -> str += "A");
-    Sub<Object> subB = new Sub<>(1, e -> str += "B");
-    Sub<Object> subD = new Sub<>(-1, e -> str += "D");
 
     @Test
     void order() {

@@ -1,7 +1,7 @@
-package cc.neckbeard.tinypubsub.tests;
+package cc.neckbeard.tinyeventbus.tests;
 
-import cc.neckbeard.tinypubsub.Bus;
-import cc.neckbeard.tinypubsub.Sub;
+import cc.neckbeard.tinyeventbus.Bus;
+import cc.neckbeard.tinyeventbus.Sub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -23,11 +23,11 @@ class StressTests {
         hits = 0;
     }
 
-    Sub<Object> subA = new Sub<>(Integer.MAX_VALUE, o -> hits++);
-    Sub<Object> subB = new Sub<>(42, o -> hits++);
-    Sub<Object> subC = new Sub<>(0, o -> hits++);
-    Sub<Object> subD = new Sub<>(-42, o -> hits++);
-    Sub<Object> subE = new Sub<>(Integer.MIN_VALUE, o -> hits++);
+    Sub<Object> subA = Sub.of( o -> hits++, Integer.MAX_VALUE);
+    Sub<Object> subB = new Sub<>(o -> hits++, 42);
+    Sub<Object> subC = Sub.of(o -> hits++);
+    Sub<Object> subD = new Sub<>(o -> hits++, -42);
+    Sub<Object> subE = Sub.of( o -> hits++, Integer.MIN_VALUE);
 
     @Test
     @DisplayName("pub 2m")

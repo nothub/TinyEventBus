@@ -1,4 +1,4 @@
-package cc.neckbeard.tinypubsub;
+package cc.neckbeard.tinyeventbus;
 
 public interface Cancellable {
 

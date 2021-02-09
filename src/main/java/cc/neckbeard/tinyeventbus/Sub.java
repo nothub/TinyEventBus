@@ -1,4 +1,4 @@
-package cc.neckbeard.tinypubsub;
+package cc.neckbeard.tinyeventbus;
 
 import net.jodah.typetools.TypeResolver;
 import org.jetbrains.annotations.NotNull;
@@ -11,10 +11,30 @@ public class Sub<T> implements Comparable<Sub<T>> {
     public final Class<?> type;
     public final Consumer<T> consumer;
 
-    public Sub(int prio, Consumer<T> consumer) {
+    public Sub(Consumer<T> consumer, int prio) {
         this.prio = prio;
         this.type = TypeResolver.resolveRawArguments(Consumer.class, consumer.getClass())[0];
         this.consumer = consumer;
+    }
+
+    public Sub(int prio, Consumer<T> consumer) {
+        this(consumer, 0);
+    }
+
+    public Sub(Consumer<T> consumer) {
+        this(consumer, 0);
+    }
+
+    public static <T> Sub<T> of(Consumer<T> consumer, int prio) {
+        return new Sub<>(consumer, prio);
+    }
+
+    public static <T> Sub<T> of(int prio, Consumer<T> consumer) {
+        return new Sub<>(consumer, prio);
+    }
+
+    public static <T> Sub<T> of(Consumer<T> consumer) {
+        return new Sub<>(consumer);
     }
 
     public void accept(Object o) {

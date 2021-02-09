@@ -1,4 +1,4 @@
-package cc.neckbeard.tinypubsub;
+package cc.neckbeard.tinyeventbus;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

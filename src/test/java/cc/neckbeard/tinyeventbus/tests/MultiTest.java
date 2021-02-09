@@ -1,7 +1,7 @@
-package cc.neckbeard.tinypubsub.tests;
+package cc.neckbeard.tinyeventbus.tests;
 
-import cc.neckbeard.tinypubsub.Bus;
-import cc.neckbeard.tinypubsub.Sub;
+import cc.neckbeard.tinyeventbus.Bus;
+import cc.neckbeard.tinyeventbus.Sub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,9 +14,9 @@ class MultiTest {
     private static Bus bus = new Bus();
     private static int hits;
 
-    private final Sub<Object> sub = new Sub<>(0, o -> hits++);
+    private final Sub<Object> sub = new Sub<>(o -> hits++);
 
-    private static final Sub<Object> subStatic = new Sub<>(0, o -> hits++);
+    private static final Sub<Object> subStatic = Sub.of(o -> hits++);
 
     @BeforeEach
     void setUp() {
@@ -42,8 +42,8 @@ class MultiTest {
 
     @Test
     void regInline() {
-        bus.reg(new Sub<>(0, o -> hits++));
-        bus.reg(new Sub<>(0, o -> hits++));
+        bus.reg(new Sub<>(o -> hits++));
+        bus.reg(Sub.of(o -> hits++));
         bus.pub(new Object());
         Assertions.assertEquals(2, hits);
     }

@@ -1,14 +1,14 @@
-package cc.neckbeard.tinypubsub.example;
+package cc.neckbeard.tinyeventbus.example;
 
-import cc.neckbeard.tinypubsub.Bus;
-import cc.neckbeard.tinypubsub.Cancellable;
-import cc.neckbeard.tinypubsub.Sub;
+import cc.neckbeard.tinyeventbus.Bus;
+import cc.neckbeard.tinyeventbus.Cancellable;
+import cc.neckbeard.tinyeventbus.Sub;
 
 public class Example {
 
     private static String msg = "";
 
-    Sub<Event> first = new Sub<>(0, e -> msg = e.str);
+    Sub<Event> first = new Sub<>( e -> msg = e.str);
 
     Sub<Event> second = new Sub<>(1, e -> {
         if (e.str.equals("foobar")) e.cancelled = true;

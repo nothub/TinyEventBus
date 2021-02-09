@@ -1,7 +1,8 @@
-package cc.neckbeard.tinypubsub.tests;
+package cc.neckbeard.tinyeventbus.benchmark;
 
-import cc.neckbeard.tinypubsub.Bus;
-import cc.neckbeard.tinypubsub.Sub;
+import cc.neckbeard.tinyeventbus.Bus;
+import cc.neckbeard.tinyeventbus.Sub;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
@@ -9,17 +10,19 @@ import org.junit.jupiter.api.parallel.ExecutionMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+
 @Execution(ExecutionMode.SAME_THREAD)
-public class PubSubTest {
+public class PubBenchmark {
 
     private static final String event = "";
+
     private static final Bus bus = new Bus();
     private static int hits = 0;
 
     @Test
-    void run() {
+    void benchmark() {
 
-        System.out.println("com.github.nothub TinyPubSub 8c9f424f85");
+        System.out.println("pub");
 
         final int subs = 1_000;
         final int pubs = 1_000;
@@ -30,11 +33,11 @@ public class PubSubTest {
 
         IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(0, s -> hits++)));
 
-        final long start = System.nanoTime();
-
         IntStream
             .range(0, subs)
             .forEach(i -> bus.reg(listenerContainers.get(i)));
+
+        final long start = System.nanoTime();
 
         IntStream
             .range(0, pubs)
@@ -42,8 +45,9 @@ public class PubSubTest {
 
         final long end = System.nanoTime() - start;
 
-        System.out.println("hits: " + hits);
-        System.out.printf("%,dns (%,dms)", end, end / 1000000);
+        System.out.printf("%,dns (%,dms)\n", end, end / 1000000);
+
+        Assertions.assertEquals(subs * pubs, hits);
 
     }
 

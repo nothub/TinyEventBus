@@ -1,7 +1,7 @@
-package cc.neckbeard.tinypubsub.tests;
+package cc.neckbeard.tinyeventbus.tests;
 
-import cc.neckbeard.tinypubsub.Bus;
-import cc.neckbeard.tinypubsub.Sub;
+import cc.neckbeard.tinyeventbus.Bus;
+import cc.neckbeard.tinyeventbus.Sub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,14 +20,24 @@ class UniqueTest {
         hits = 0;
     }
 
-    Sub<Object> sub = new Sub<>(0, o -> hits++);
+    Sub<Object> sub = new Sub<>( o -> hits++);
 
     @Test
-    void multireg() {
+    void multireg_a() {
         bus.reg(sub);
         bus.reg(sub);
         bus.pub(new Object());
         Assertions.assertEquals(1, hits);
+    }
+
+    @Test
+    void multireg_b() {
+        bus.reg(new Sub<>( o -> hits++));
+        bus.reg(new Sub<>( o -> hits++));
+        bus.reg(Sub.of( o -> hits++));
+        bus.reg(Sub.of( o -> hits++));
+        bus.pub(new Object());
+        Assertions.assertEquals(4, hits);
     }
 
 }
