@@ -13,5 +13,5 @@ trim_trailing_whitespace = true
 [*.{md, markdown}]
 trim_trailing_whitespace = false
 
-[*.{yml, yaml}]
+[*.{json, toml, xml, yml, yaml}]
 indent_size = 2

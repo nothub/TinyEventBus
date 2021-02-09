@@ -18,7 +18,7 @@ public class Sub<T> implements Comparable<Sub<T>> {
     }
 
     public Sub(int prio, Consumer<T> consumer) {
-        this(consumer, 0);
+        this(consumer, prio);
     }
 
     public Sub(Consumer<T> consumer) {

@@ -1,12 +1,12 @@
 A tiny and fast pubsub implementation with priorities and canceling.
 
 Check the
-[example](https://github.com/nothub/TinyEventBus/blob/master/src/test/java/cc/neckbeard/tinypubsub/example/Example.java)
+[example](https://github.com/nothub/TinyEventBus/blob/master/src/test/java/cc/neckbeard/tinyeventbus/example/Example.java)
 for a usage snippet.
 
 ---
 
-[benchmarks](https://github.com/nothub/TinyEventBus/tree/master/src/test/java/cc/neckbeard/tinypubsub/benchmark) (
+[benchmarks](https://github.com/nothub/TinyEventBus/tree/master/src/test/java/cc/neckbeard/tinyeventbus/benchmark) (
 openjdk 8, xeon e3-1230 3.30ghz):
 
 ```

@@ -1,10 +1,11 @@
 *
 !*/
 
+!/.github/**
+!/src/**
+
 !/*.md
 !/.editorconfig
-!/.github/**
 !/.gitignore
 !/LICENSE
 !/pom.xml
-!/src/**

@@ -24,7 +24,6 @@ class StaticTests {
     }
 
     @Test
-    @Order(0)
     void reg() {
         bus.reg(sub);
         bus.pub(new BooleanEvent(true));
@@ -32,7 +31,6 @@ class StaticTests {
     }
 
     @Test
-    @Order(1)
     void del() {
         bus.del(sub);
         bus.pub(new BooleanEvent(true));
