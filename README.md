@@ -2,7 +2,7 @@
 
 [![maven central](https://maven-badges.herokuapp.com/maven-central/cc.neckbeard/TinyEventBus/badge.svg)](https://maven-badges.herokuapp.com/maven-central/cc.neckbeard/TinyEventBus)
 
-A tiny and fast pubsub implementation with subscriber priorities and event canceling for Java 8 to 11.
+A tiny and fast pubsub implementation with subscriber priorities and event canceling for Java 8 and 11.
 
 ---
 
@@ -27,5 +27,4 @@ class Listenable {
 }
 ```
 
-Check the
-[example](https://github.com/nothub/TinyEventBus/blob/master/src/test/java/cc/neckbeard/tinyeventbus/example/Example.java).
+[example](https://github.com/nothub/TinyEventBus/blob/master/src/test/java/cc/neckbeard/tinyeventbus/example/Example.java)
