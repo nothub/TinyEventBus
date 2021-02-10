@@ -25,7 +25,7 @@ public class Sub<T> implements Comparable<Sub<T>> {
 
     /**
      * Consumer to be invoked when an event is received.
-     * Accepts an object of the generically defined type <T> as event to be processed.
+     * Accepts an object of the generically defined type as event to be processed.
      */
     public final Consumer<T> consumer;
 
@@ -98,8 +98,8 @@ public class Sub<T> implements Comparable<Sub<T>> {
      * Subscribers are distinguished by comparing the following 3 characteristics in the listed order:
      * <ul>
      *     <li>{@link Sub#priority}</li>
-     *     <li>{@link Sub#consumer} by {@link Consumer#hashCode()}</li>
-     *     <li>{@link Sub#hashCode()}</li>
+     *     <li>{@link Sub#consumer} (hashCode)</li>
+     *     <li>{@link Sub} (hashCode)</li>
      * </ul>
      *
      * @param sub the {@link Sub} to be compared.
