@@ -10,7 +10,7 @@
   <packaging>jar</packaging>
 
   <name>${project.artifactId}</name>
-  <description>A tiny and fast pubsub implementation with priorities and canceling.</description>
+  <description>A tiny and fast pubsub implementation with subscriber priorities and event canceling for Java 8 to 11.</description>
   <url>https://github.com/nothub/TinyEventBus</url>
 
   <licenses>
