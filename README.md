@@ -44,7 +44,7 @@ Check the
     <dependency>
         <groupId>cc.neckbeard</groupId>
         <artifactId>TinyEventBus</artifactId>
-        <version>2.0.4</version>
+        <version>VERSION</version>
     </dependency>
 </dependencies>
 ```
