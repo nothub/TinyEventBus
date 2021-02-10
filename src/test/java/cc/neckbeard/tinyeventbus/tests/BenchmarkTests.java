@@ -3,6 +3,7 @@ package cc.neckbeard.tinyeventbus.tests;
 import cc.neckbeard.tinyeventbus.Bus;
 import cc.neckbeard.tinyeventbus.Sub;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
@@ -16,6 +17,11 @@ public class BenchmarkTests {
 
     private static Bus bus = new Bus();
     private static int hits;
+
+    @BeforeAll
+    static void beforeAll() {
+        System.out.println("java runtime: " + System.getProperty("java.runtime.version") + System.lineSeparator());
+    }
 
     void setUp() {
         bus = new Bus();
@@ -63,7 +69,7 @@ public class BenchmarkTests {
 
         final long end = System.nanoTime() - start;
 
-        System.out.printf("%,dns (%,dms)\n", end, end / 1000000);
+        System.out.printf("%,dns (%,dms)" + System.lineSeparator() + System.lineSeparator(), end, end / 1000000);
 
     }
 
@@ -92,7 +98,7 @@ public class BenchmarkTests {
 
         final long end = System.nanoTime() - start;
 
-        System.out.printf("%,dns (%,dms)\n", end, end / 1000000);
+        System.out.printf("%,dns (%,dms)" + System.lineSeparator() + System.lineSeparator(), end, end / 1000000);
 
     }
 
@@ -121,9 +127,9 @@ public class BenchmarkTests {
 
         final long end = System.nanoTime() - start;
 
-        System.out.printf("%,dns (%,dms)\n", end, end / 1000000);
-
         Assertions.assertEquals(subs * pubs, hits);
+
+        System.out.printf("%,dns (%,dms)" + System.lineSeparator() + System.lineSeparator(), end, end / 1000000);
 
     }
 
