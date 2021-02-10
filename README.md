@@ -1,5 +1,7 @@
 #### TinyEventBus
 
+[![maven central](https://maven-badges.herokuapp.com/maven-central/cc.neckbeard/TinyEventBus/badge.svg)](https://maven-badges.herokuapp.com/maven-central/cc.neckbeard/TinyEventBus)
+
 A tiny and fast pubsub implementation with subscriber priorities and event canceling.
 
 ---
