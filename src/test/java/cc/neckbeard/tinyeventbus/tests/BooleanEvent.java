@@ -1,6 +1,6 @@
 package cc.neckbeard.tinyeventbus.tests;
 
-class BooleanEvent {
+class BooleanEvent extends Event {
 
     final boolean value;
 
