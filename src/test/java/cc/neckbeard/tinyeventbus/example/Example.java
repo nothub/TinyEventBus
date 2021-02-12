@@ -1,6 +1,7 @@
 package cc.neckbeard.tinyeventbus.example;
 
 import cc.neckbeard.tinyeventbus.Bus;
+import cc.neckbeard.tinyeventbus.Cancelable;
 import cc.neckbeard.tinyeventbus.Sub;
 
 import java.util.function.Consumer;
@@ -41,4 +42,25 @@ class Example {
 
     }
 
+    static class Main {
+        public static void main(String[] args) {
+            new Example().run();
+        }
+    }
+
+    static class Event implements Cancelable {
+
+        String str;
+        boolean canceled;
+
+        Event(String str) {
+            this.str = str;
+        }
+
+        @Override
+        public boolean isCanceled() {
+            return canceled;
+        }
+
+    }
 }
