@@ -32,6 +32,19 @@ public class Sub<T> implements Comparable<Sub<T>> {
     final Class<?> eventType;
 
     /**
+     * TODO
+     *
+     * @param consumer
+     * @param priority
+     * @param eventType
+     */
+    public Sub(Consumer<T> consumer, int priority, Class<?> eventType) {
+        this.priority = priority;
+        this.consumer = consumer;
+        this.eventType = eventType;
+    }
+
+    /**
      * Creates a {@link Sub} instance.
      *
      * @param consumer Consumer to be invoked when an event is received.
@@ -45,6 +58,17 @@ public class Sub<T> implements Comparable<Sub<T>> {
     }
 
     /**
+     * TODO
+     *
+     * @param consumer
+     * @param eventType
+     */
+    public Sub(Consumer<T> consumer, Class<?> eventType) {
+        this(consumer, 0, eventType);
+    }
+
+
+    /**
      * Creates a {@link Sub} instance.
      * {@link Sub#priority} defaults to 0.
      *
@@ -53,6 +77,19 @@ public class Sub<T> implements Comparable<Sub<T>> {
      */
     public Sub(Consumer<T> consumer) {
         this(consumer, 0);
+    }
+
+    /**
+     * TODO
+     *
+     * @param consumer
+     * @param priority
+     * @param eventType
+     * @param <T>
+     * @return
+     */
+    public static <T> Sub<T> of(Consumer<T> consumer, int priority, Class<?> eventType) {
+        return new Sub<>(consumer, priority, eventType);
     }
 
     /**
@@ -66,6 +103,18 @@ public class Sub<T> implements Comparable<Sub<T>> {
      */
     public static <T> Sub<T> of(Consumer<T> consumer, int priority) {
         return new Sub<>(consumer, priority);
+    }
+
+    /**
+     * TODO
+     *
+     * @param consumer
+     * @param eventType
+     * @param <T>
+     * @return
+     */
+    public static <T> Sub<T> of(Consumer<T> consumer, Class<?> eventType) {
+        return new Sub<>(consumer, eventType);
     }
 
     /**

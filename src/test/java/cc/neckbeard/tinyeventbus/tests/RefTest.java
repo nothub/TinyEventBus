@@ -50,7 +50,7 @@ class RefTest {
 
     @Test
     void refWonky() {
-        bus.reg(new Sub<>(ToggleEvent::cancel));
+        bus.reg(new Sub<>(ToggleEvent::cancel, ToggleEvent.class));
         final ToggleEvent ev = new ToggleEvent();
         bus.pub(ev);
         Assertions.assertTrue(ev.isCanceled());
@@ -58,7 +58,7 @@ class RefTest {
 
     @Test
     void ref() {
-        bus.reg(new Sub<>(TestEvent::cancel));
+        bus.reg(new Sub<>(TestEvent::cancel, TestEvent.class));
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
         Assertions.assertTrue(ev.isCanceled());
@@ -66,7 +66,7 @@ class RefTest {
 
     @Test
     void refCancelableEvent() {
-        bus.reg(new Sub<TestEvent>(CancelableEvent::cancel));
+        bus.reg(new Sub<TestEvent>(CancelableEvent::cancel, TestEvent.class));
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
         Assertions.assertTrue(ev.isCanceled());
@@ -74,7 +74,7 @@ class RefTest {
 
     @Test
     void refOf() {
-        Sub<TestEvent> sub = Sub.of(TestEvent::cancel);
+        Sub<TestEvent> sub = Sub.of(TestEvent::cancel, TestEvent.class);
         bus.reg(sub);
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
@@ -83,7 +83,7 @@ class RefTest {
 
     @Test
     void refOfCancelableEvent() {
-        Sub<TestEvent> sub = Sub.of(CancelableEvent::cancel);
+        Sub<TestEvent> sub = Sub.of(CancelableEvent::cancel, TestEvent.class);
         bus.reg(sub);
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
@@ -92,7 +92,7 @@ class RefTest {
 
     @Test
     void refOfInline() {
-        bus.reg(Sub.of(TestEvent::cancel));
+        bus.reg(Sub.of(TestEvent::cancel, TestEvent.class));
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
         Assertions.assertTrue(ev.isCanceled());
@@ -100,7 +100,7 @@ class RefTest {
 
     @Test
     void refOfInlineCancelableEvent() {
-        bus.reg(Sub.<TestEvent>of(CancelableEvent::cancel));
+        bus.reg(Sub.<TestEvent>of(CancelableEvent::cancel, TestEvent.class));
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
         Assertions.assertTrue(ev.isCanceled());
