@@ -47,7 +47,7 @@ class SomeEvent extends CancelableEvent {
 Sub<SomeEvent> sub = Sub.of(SomeEvent::cancel);
 ```
 
-To work around this problem, use one of the following patterns:
+To ensure the correctness of the event type, use one of the following patterns:
 
 ```java
 Sub<SomeEvent> sub = Sub.of(e -> e.cancel());
