@@ -41,6 +41,22 @@ class RefTest {
     }
 
     @Test
+    void refNonWonky() {
+        bus.reg(new Sub<>(ToggleEvent::flip));
+        final ToggleEvent ev = new ToggleEvent();
+        bus.pub(ev);
+        Assertions.assertTrue(ev.state);
+    }
+
+    @Test
+    void refWonky() {
+        bus.reg(new Sub<>(ToggleEvent::cancel));
+        final ToggleEvent ev = new ToggleEvent();
+        bus.pub(ev);
+        Assertions.assertTrue(ev.isCanceled());
+    }
+
+    @Test
     void ref() {
         bus.reg(new Sub<>(TestEvent::cancel));
         final TestEvent ev = new TestEvent();
