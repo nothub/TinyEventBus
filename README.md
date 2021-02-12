@@ -9,12 +9,10 @@ A tiny and fast pubsub implementation with subscriber priorities and event cance
 ###### usage
 
 ```java
-class Listenable {
-    void run() {
-        Bus bus = new Bus();
-        bus.reg(Sub.of(System.out::println));
-        bus.pub("Hello World!");
-    }
+void run() {
+    Bus bus = new Bus();
+    bus.reg(Sub.of(System.out::println));
+    bus.pub("Hello World!");
 }
 ```
 
@@ -36,10 +34,16 @@ For more explanation, check the [example](https://github.com/nothub/TinyEventBus
 
 ###### reference lambdas
 
+Reference lambdas invoking a function of an extended superclass of the event tend to cause type confusion.
+
 ```java
-class Listenable {
-    Sub<Long> sub = Sub.of(TestEvent::cancel);
-}
+Sub<TestEvent> sub = Sub.of(TestEvent::cancel);
 ```
 
-Reference lambdas invoking a function of an extended superclass of the event tend to cause type confusion, for more information please check: [ref-example](https://github.com/nothub/TinyEventBus/blob/master/src/test/java/cc/neckbeard/tinyeventbus/example/RefExample.java)
+To set the event type manually, use the following pattern:
+
+```java
+Sub<TestEvent> sub = Sub.of(TestEvent::cancel, TestEvent.class);
+```
+
+For more information please check: [ref-example](https://github.com/nothub/TinyEventBus/blob/master/src/test/java/cc/neckbeard/tinyeventbus/example/RefExample.java)
