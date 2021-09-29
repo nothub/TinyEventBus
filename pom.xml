@@ -10,7 +10,9 @@
   <packaging>jar</packaging>
 
   <name>${project.artifactId}</name>
-  <description>Tiny and fast pubsub implementation with subscriber priorities and event canceling for Java 8, 11 and 17.</description>
+  <description>Tiny and fast pubsub implementation with subscriber priorities and event canceling for Java 8, 11 and
+    17.
+  </description>
   <url>https://github.com/nothub/TinyEventBus</url>
 
   <licenses>
@@ -24,8 +26,6 @@
     <developer>
       <name>nothub</name>
       <email>nothub@posteo.net</email>
-      <organization>neckbeard.cc</organization>
-      <organizationUrl>https://neckbeard.cc/</organizationUrl>
     </developer>
   </developers>
 
