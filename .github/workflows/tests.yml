@@ -8,12 +8,12 @@ on:
 jobs:
 
   job:
-    name: Java ${{ matrix.java }} on ${{ matrix.os }}
+    name: Java ${{ matrix.java }}
 
     strategy:
       matrix:
-        java: [ 8, 11 ]
-      fail-fast: false
+        java: [ 8, 11, 17 ]
+      fail-fast: true
 
     runs-on: 'ubuntu-latest'
 

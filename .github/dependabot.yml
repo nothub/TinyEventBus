@@ -1,5 +1,6 @@
 version: 2
 updates:
+
   - package-ecosystem: "maven"
     directory: "/"
     schedule:
@@ -12,4 +13,18 @@ updates:
       - "nothub"
     commit-message:
       prefix: "maven"
+      include: "scope"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+      time: "12:00"
+      timezone: "Europe/Berlin"
+    assignees:
+      - "nothub"
+    reviewers:
+      - "nothub"
+    commit-message:
+      prefix: "github-actions"
       include: "scope"
