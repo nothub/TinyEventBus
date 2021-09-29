@@ -40,7 +40,7 @@ public class Bus {
     @NotNull
     private static Function<Field, Sub<?>> subFieldConverter(Object parent) {
         return field -> {
-            boolean accessible = field.isAccessible(); // jdk 9+: boolean accessible = field.canAccess(Bus.class);
+            boolean accessible = field.isAccessible();
             field.setAccessible(true);
             try {
                 return (Sub<?>) field.get(parent);
