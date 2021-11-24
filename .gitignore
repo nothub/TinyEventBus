@@ -3,6 +3,7 @@
 
 !/.github/**
 !/src/**
+!/.mvn/**
 
 !/*.md
 !/.editorconfig
