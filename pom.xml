@@ -55,6 +55,23 @@
         </configuration>
       </plugin>
       <plugin>
+        <groupId>org.owasp</groupId>
+        <artifactId>dependency-check-maven</artifactId>
+        <version>6.5.1</version>
+        <configuration>
+          <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
+          <cveValidForHours>1</cveValidForHours>
+          <formats>HTML,JSON</formats>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.2</version>
