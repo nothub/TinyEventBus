@@ -59,9 +59,8 @@
         <artifactId>dependency-check-maven</artifactId>
         <version>6.5.1</version>
         <configuration>
-          <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
+          <failBuildOnCVSS>4.0</failBuildOnCVSS>
           <cveValidForHours>1</cveValidForHours>
-          <formats>HTML,JSON</formats>
         </configuration>
         <executions>
           <execution>
