@@ -40,5 +40,5 @@ jobs:
           key: '${{ runner.os }}-gradle-${{ hashFiles(''**/*.gradle'') }}'
           restore-keys: '${{ runner.os }}-gradle'
 
-      - name: Maven Test
-        run: mvn --batch-mode --show-version --errors test --file pom.xml
+      - name: Maven Verify
+        run: mvn --batch-mode --show-version --errors verify --file pom.xml
