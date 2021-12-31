@@ -46,7 +46,7 @@
     <defaultGoal>clean verify</defaultGoal>
     <plugins>
       <plugin>
-        <!-- require maven 3, java 8, check for common dependency problems -->
+        <!-- require maven 3, java >= 8, check for common dependency problems -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
         <version>3.0.0</version>
@@ -63,7 +63,7 @@
                   <version>[3,)</version>
                 </requireMavenVersion>
                 <requireJavaVersion>
-                  <version>[8,)</version>
+                  <version>[1.8,1.9),[8,)</version>
                 </requireJavaVersion>
                 <banDuplicatePomDependencyVersions/>
                 <dependencyConvergence/>
