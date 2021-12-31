@@ -43,16 +43,38 @@
   </properties>
 
   <build>
-    <defaultGoal>clean test</defaultGoal>
+    <defaultGoal>clean verify</defaultGoal>
     <plugins>
       <plugin>
+        <!-- require maven 3, java 8, check for common dependency problems -->
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-        </configuration>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>enforce-rules</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <!-- https://maven.apache.org/enforcer/enforcer-rules/index.html -->
+                <requireMavenVersion>
+                  <version>[3,)</version>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <version>[8,)</version>
+                </requireJavaVersion>
+                <banDuplicatePomDependencyVersions/>
+                <dependencyConvergence/>
+                <requireReleaseDeps/>
+                <requireUpperBoundDeps/>
+              </rules>
+              <fail>true</fail>
+              <failFast>true</failFast>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.owasp</groupId>
@@ -72,8 +94,17 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
+        <version>3.0.0-M5</version>
       </plugin>
     </plugins>
   </build>
@@ -148,14 +179,15 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.jetbrains</groupId>
-      <artifactId>annotations</artifactId>
-      <version>23.0.0</version>
-    </dependency>
-    <dependency>
       <groupId>net.jodah</groupId>
       <artifactId>typetools</artifactId>
       <version>0.6.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>23.0.0</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
