@@ -105,6 +105,15 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <plugins>
+            <plugin>
+              <groupId>com.h3xstream.findsecbugs</groupId>
+              <artifactId>findsecbugs-plugin</artifactId>
+              <version>1.11.0</version>
+            </plugin>
+          </plugins>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
