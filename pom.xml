@@ -83,6 +83,7 @@
         <configuration>
           <failBuildOnCVSS>4.0</failBuildOnCVSS>
           <cveValidForHours>1</cveValidForHours>
+          <skipProvidedScope>true</skipProvidedScope>
         </configuration>
         <executions>
           <execution>
