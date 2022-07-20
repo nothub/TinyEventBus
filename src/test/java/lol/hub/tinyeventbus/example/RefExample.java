@@ -1,8 +1,8 @@
-package cc.neckbeard.tinyeventbus.example;
+package lol.hub.tinyeventbus.example;
 
-import cc.neckbeard.tinyeventbus.Bus;
-import cc.neckbeard.tinyeventbus.Cancelable;
-import cc.neckbeard.tinyeventbus.Sub;
+import lol.hub.tinyeventbus.Bus;
+import lol.hub.tinyeventbus.Cancelable;
+import lol.hub.tinyeventbus.Sub;
 
 class RefExample {
 

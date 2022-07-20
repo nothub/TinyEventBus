@@ -1,7 +1,7 @@
-package cc.neckbeard.tinyeventbus.tests;
+package lol.hub.tinyeventbus.tests;
 
-import cc.neckbeard.tinyeventbus.Bus;
-import cc.neckbeard.tinyeventbus.Sub;
+import lol.hub.tinyeventbus.Bus;
+import lol.hub.tinyeventbus.Sub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

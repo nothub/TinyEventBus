@@ -28,7 +28,7 @@ class Listenable {
 }
 ```
 
-For more explanation, check the [example](https://github.com/nothub/TinyEventBus/blob/master/src/test/java/cc/neckbeard/tinyeventbus/example/Example.java).
+For more explanation, check the [example](https://github.com/nothub/TinyEventBus/blob/master/src/test/java/lol/hub/tinyeventbus/example/Example.java).
 
 ---
 
@@ -54,4 +54,4 @@ Sub<SomeEvent> sub = Sub.of(e -> e.cancel());
 Sub<SomeEvent> sub = Sub.of(SomeEvent::cancel, SomeEvent.class);
 ```
 
-For more information please check: [ref-example](https://github.com/nothub/TinyEventBus/blob/master/src/test/java/cc/neckbeard/tinyeventbus/example/RefExample.java)
+For more information please check: [ref-example](https://github.com/nothub/TinyEventBus/blob/master/src/test/java/lol/hub/tinyeventbus/example/RefExample.java)

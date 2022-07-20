@@ -1,4 +1,4 @@
-package cc.neckbeard.tinyeventbus.tests;
+package lol.hub.tinyeventbus.tests;
 
 class BooleanEvent extends Event {
 

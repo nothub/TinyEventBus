@@ -1,4 +1,4 @@
-package cc.neckbeard.tinyeventbus;
+package lol.hub.tinyeventbus;
 
 import org.jetbrains.annotations.NotNull;
 

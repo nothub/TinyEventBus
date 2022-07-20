@@ -1,6 +1,6 @@
-package cc.neckbeard.tinyeventbus.tests;
+package lol.hub.tinyeventbus.tests;
 
-import cc.neckbeard.tinyeventbus.Cancelable;
+import lol.hub.tinyeventbus.Cancelable;
 
 abstract class CancelableEvent extends Event implements Cancelable {
 
