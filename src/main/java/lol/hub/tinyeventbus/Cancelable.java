@@ -1,4 +1,4 @@
-package cc.neckbeard.tinyeventbus;
+package lol.hub.tinyeventbus;
 
 /**
  * Events implementing this interface can be canceled while processed by the {@link Bus}.

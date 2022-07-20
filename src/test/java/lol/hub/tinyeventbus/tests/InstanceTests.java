@@ -1,7 +1,7 @@
-package cc.neckbeard.tinyeventbus.tests;
+package lol.hub.tinyeventbus.tests;
 
-import cc.neckbeard.tinyeventbus.Bus;
-import cc.neckbeard.tinyeventbus.Sub;
+import lol.hub.tinyeventbus.Bus;
+import lol.hub.tinyeventbus.Sub;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -9,12 +9,12 @@ import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
 
 @Execution(ExecutionMode.SAME_THREAD)
-class StaticTests {
+class InstanceTests {
 
     private static Bus bus;
     private static boolean invoked;
 
-    Sub<BooleanEvent> sub = new Sub<>(e -> invoked = e.value, 0);
+    Sub<BooleanEvent> sub = Sub.of(e -> invoked = e.value);
 
     @BeforeAll
     static void setUp() {

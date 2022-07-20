@@ -1,4 +1,4 @@
-package cc.neckbeard.tinyeventbus.tests;
+package lol.hub.tinyeventbus.tests;
 
 public class TestEvent extends CancelableEvent {
 }

@@ -1,4 +1,4 @@
-package cc.neckbeard.tinyeventbus;
+package lol.hub.tinyeventbus;
 
 import net.jodah.typetools.TypeResolver;
 import org.jetbrains.annotations.NotNull;
