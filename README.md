@@ -1,6 +1,6 @@
 # TinyEventBus
 
-[![maven central](https://maven-badges.herokuapp.com/maven-central/cc.neckbeard/TinyEventBus/badge.svg)](https://search.maven.org/artifact/cc.neckbeard/TinyEventBus) [![LGTM](https://img.shields.io/lgtm/grade/java/github/nothub/TinyEventBus?label=code%20quality&logo=lgtm)](https://lgtm.com/projects/g/nothub/TinyEventBus)
+[![maven central](https://maven-badges.herokuapp.com/maven-central/lol.hub/TinyEventBus/badge.svg)](https://search.maven.org/artifact/lol.hub/TinyEventBus) [![LGTM](https://img.shields.io/lgtm/grade/java/github/nothub/TinyEventBus?label=code%20quality&logo=lgtm)](https://lgtm.com/projects/g/nothub/TinyEventBus)
 
 Tiny and fast pubsub implementation with subscriber priorities and event canceling for Java 8, 11 and 17.
 
