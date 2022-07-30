@@ -77,7 +77,7 @@ public class Bus {
      */
     public void reg(Sub<?> sub) {
         subs
-            .computeIfAbsent(sub.eventType, clazz -> new ConcurrentSkipListSet<>())
+            .computeIfAbsent(sub.topic, clazz -> new ConcurrentSkipListSet<>())
             .add(sub);
     }
 
@@ -101,7 +101,7 @@ public class Bus {
      * @see #unreg(Object)
      */
     public void unreg(Sub<?> sub) {
-        final ConcurrentSkipListSet<Sub<?>> subs = this.subs.get(sub.eventType);
+        final ConcurrentSkipListSet<Sub<?>> subs = this.subs.get(sub.topic);
         if (subs == null) return;
         subs.remove(sub);
     }

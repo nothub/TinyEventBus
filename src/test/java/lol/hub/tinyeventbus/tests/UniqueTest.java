@@ -20,7 +20,7 @@ class UniqueTest {
         hits = 0;
     }
 
-    Sub<Object> sub = new Sub<>(o -> hits++);
+    Sub<Object> sub = new Sub<>(Object.class, o -> hits++);
 
     @Test
     void multireg_a() {
@@ -32,10 +32,10 @@ class UniqueTest {
 
     @Test
     void multireg_b() {
-        bus.reg(new Sub<>(o -> hits++));
-        bus.reg(new Sub<>(o -> hits++));
-        bus.reg(Sub.of(o -> hits++));
-        bus.reg(Sub.of(o -> hits++));
+        bus.reg(new Sub<>(Object.class, o -> hits++));
+        bus.reg(new Sub<>(Object.class, o -> hits++));
+        bus.reg(Sub.of(Object.class, o -> hits++));
+        bus.reg(Sub.of(Object.class, o -> hits++));
         bus.pub(new Object());
         Assertions.assertEquals(4, hits);
     }

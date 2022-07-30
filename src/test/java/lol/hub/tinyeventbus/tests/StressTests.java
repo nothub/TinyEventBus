@@ -23,11 +23,11 @@ class StressTests {
         hits = 0;
     }
 
-    Sub<Object> subA = Sub.of(o -> hits++, Integer.MAX_VALUE);
-    Sub<Object> subB = new Sub<>(o -> hits++, 42);
-    Sub<Object> subC = Sub.of(o -> hits++);
-    Sub<Object> subD = new Sub<>(o -> hits++, -42);
-    Sub<Object> subE = Sub.of(o -> hits++, Integer.MIN_VALUE);
+    Sub<Object> subA = Sub.of(Object.class, o -> hits++, Integer.MAX_VALUE);
+    Sub<Object> subB = new Sub<>(Object.class, o -> hits++, 42);
+    Sub<Object> subC = Sub.of(Object.class, o -> hits++);
+    Sub<Object> subD = new Sub<>(Object.class, o -> hits++, -42);
+    Sub<Object> subE = Sub.of(Object.class, o -> hits++, Integer.MIN_VALUE);
 
     @Test
     @DisplayName("pub 2m")

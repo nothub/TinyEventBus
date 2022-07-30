@@ -11,15 +11,13 @@ class Example {
     // create event consumer
     final Consumer<Event> eventConsumer = e -> System.out.println(e.str);
     // create subscriber
-    Sub<Event> sub = new Sub<>(eventConsumer);
-
+    Sub<Event> sub = new Sub<>(Event.class, eventConsumer);
     // create subscriber with inline consumer
-    Sub<Event> prioSub = new Sub<>(e -> {
+    Sub<Event> prioSub = new Sub<>(Event.class, e -> {
         if (e.str.equals("foobar")) e.canceled = true;
     }, 50); // priority is defined as integer
-
     // create subscriber with convenience method
-    Sub<Event> highPrioSub = Sub.of(e -> e.str = ":3", 100); // higher priority comes first
+    Sub<Event> highPrioSub = Sub.of(Event.class, e -> e.str = ":3", 100); // higher priority comes first
 
     void run() {
 
@@ -42,12 +40,6 @@ class Example {
 
     }
 
-    static class Main {
-        public static void main(String[] args) {
-            new Example().run();
-        }
-    }
-
     static class Event implements Cancelable {
 
         String str;
@@ -62,5 +54,11 @@ class Example {
             return canceled;
         }
 
+    }
+
+    static class Main {
+        public static void main(String[] args) {
+            new Example().run();
+        }
     }
 }

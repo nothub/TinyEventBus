@@ -23,7 +23,7 @@ class ConcurrencyTest {
     private int hitsC = 0;
     private int hitsD = 0;
 
-    private final Sub<Integer> sub = Sub.of(i -> {
+    private final Sub<Integer> sub = Sub.of(Integer.class, i -> {
         waiter.assertEquals(i, hitsB);
         hitsB++;
         hitsD++;
@@ -45,7 +45,7 @@ class ConcurrencyTest {
     @Test
     void spam() {
         AtomicBoolean invoked = new AtomicBoolean(false);
-        bus.reg(Sub.of(invoked::set));
+        bus.reg(Sub.of(Boolean.class, invoked::set));
         IntStream.range(0, 1000).forEach(i -> {
             bus.pub(true);
             Assertions.assertTrue(invoked.get());

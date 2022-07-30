@@ -58,7 +58,7 @@ public class BenchmarkTests {
 
         List<Sub<String>> listenerContainers = new ArrayList<>();
 
-        IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(s -> {
+        IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(String.class, s -> {
         })));
 
         final long start = System.nanoTime();
@@ -83,7 +83,7 @@ public class BenchmarkTests {
 
         List<Sub<String>> listenerContainers = new ArrayList<>();
 
-        IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(s -> {
+        IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(String.class, s -> {
         })));
 
         IntStream
@@ -113,7 +113,7 @@ public class BenchmarkTests {
 
         List<Sub<String>> listenerContainers = new ArrayList<>();
 
-        IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(s -> hits++)));
+        IntStream.range(0, subs).forEach(i -> listenerContainers.add(new Sub<>(String.class, s -> hits++)));
 
         IntStream
             .range(0, subs)

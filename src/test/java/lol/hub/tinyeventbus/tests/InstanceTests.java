@@ -14,7 +14,7 @@ class InstanceTests {
     private static Bus bus;
     private static boolean invoked;
 
-    Sub<BooleanEvent> sub = Sub.of(e -> invoked = e.value);
+    Sub<BooleanEvent> sub = Sub.of(BooleanEvent.class, e -> invoked = e.value);
 
     @BeforeAll
     static void setUp() {

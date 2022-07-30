@@ -15,7 +15,7 @@ class RefTest {
     @Test
     void simple() {
         //noinspection Convert2MethodRef
-        bus.reg(new Sub<TestEvent>(e -> e.cancel()));
+        bus.reg(new Sub<TestEvent>(TestEvent.class, e -> e.cancel()));
         final TestEvent evA = new TestEvent();
         bus.pub(evA);
         Assertions.assertTrue(evA.isCanceled());
@@ -24,7 +24,7 @@ class RefTest {
     @Test
     void simpleOf() {
         //noinspection Convert2MethodRef
-        Sub<TestEvent> sub = Sub.of(e -> e.cancel());
+        Sub<TestEvent> sub = Sub.of(TestEvent.class, e -> e.cancel());
         bus.reg(sub);
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
@@ -34,7 +34,7 @@ class RefTest {
     @Test
     void simpleOfInline() {
         //noinspection Convert2MethodRef
-        bus.reg(Sub.<TestEvent>of(e -> e.cancel()));
+        bus.reg(Sub.<TestEvent>of(TestEvent.class, e -> e.cancel()));
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
         Assertions.assertTrue(ev.isCanceled());
@@ -42,7 +42,7 @@ class RefTest {
 
     @Test
     void refNonWonky() {
-        bus.reg(new Sub<>(ToggleEvent::flip));
+        bus.reg(new Sub<>(ToggleEvent.class, ToggleEvent::flip));
         final ToggleEvent ev = new ToggleEvent();
         bus.pub(ev);
         Assertions.assertTrue(ev.state);
@@ -50,7 +50,7 @@ class RefTest {
 
     @Test
     void refWonky() {
-        bus.reg(new Sub<>(ToggleEvent::cancel, ToggleEvent.class));
+        bus.reg(new Sub<>(ToggleEvent.class, ToggleEvent::cancel));
         final ToggleEvent ev = new ToggleEvent();
         bus.pub(ev);
         Assertions.assertTrue(ev.isCanceled());
@@ -58,7 +58,7 @@ class RefTest {
 
     @Test
     void ref() {
-        bus.reg(new Sub<>(TestEvent::cancel, TestEvent.class));
+        bus.reg(new Sub<>(TestEvent.class,TestEvent::cancel));
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
         Assertions.assertTrue(ev.isCanceled());
@@ -66,7 +66,7 @@ class RefTest {
 
     @Test
     void refCancelableEvent() {
-        bus.reg(new Sub<TestEvent>(CancelableEvent::cancel, TestEvent.class));
+        bus.reg(new Sub<TestEvent>(TestEvent.class, CancelableEvent::cancel));
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
         Assertions.assertTrue(ev.isCanceled());
@@ -74,7 +74,7 @@ class RefTest {
 
     @Test
     void refOf() {
-        Sub<TestEvent> sub = Sub.of(TestEvent::cancel, TestEvent.class);
+        Sub<TestEvent> sub = Sub.of(TestEvent.class, TestEvent::cancel);
         bus.reg(sub);
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
@@ -83,7 +83,7 @@ class RefTest {
 
     @Test
     void refOfCancelableEvent() {
-        Sub<TestEvent> sub = Sub.of(CancelableEvent::cancel, TestEvent.class);
+        Sub<TestEvent> sub = Sub.of(TestEvent.class, CancelableEvent::cancel);
         bus.reg(sub);
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
@@ -92,7 +92,7 @@ class RefTest {
 
     @Test
     void refOfInline() {
-        bus.reg(Sub.of(TestEvent::cancel, TestEvent.class));
+        bus.reg(Sub.of(TestEvent.class, TestEvent::cancel));
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
         Assertions.assertTrue(ev.isCanceled());
@@ -100,7 +100,7 @@ class RefTest {
 
     @Test
     void refOfInlineCancelableEvent() {
-        bus.reg(Sub.<TestEvent>of(CancelableEvent::cancel, TestEvent.class));
+        bus.reg(Sub.<TestEvent>of(TestEvent.class, CancelableEvent::cancel));
         final TestEvent ev = new TestEvent();
         bus.pub(ev);
         Assertions.assertTrue(ev.isCanceled());

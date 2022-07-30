@@ -15,12 +15,12 @@ class ClassRegTests {
     private static Bus bus = new Bus();
     private static int hits;
 
-    private Sub<BooleanEvent> subPriv = Sub.of(e -> hits++);
-    protected Sub<BooleanEvent> subProt = Sub.of(e -> hits++);
-    Sub<BooleanEvent> sub = Sub.of(e -> hits++);
-    private static Sub<BooleanEvent> subStaticPriv = Sub.of(e -> hits++);
-    protected static Sub<BooleanEvent> subStaticProt = Sub.of(e -> hits++);
-    static Sub<BooleanEvent> subStatic = Sub.of(e -> hits++);
+    private Sub<BooleanEvent> subPriv = Sub.of(BooleanEvent.class, e -> hits++);
+    protected Sub<BooleanEvent> subProt = Sub.of(BooleanEvent.class, e -> hits++);
+    Sub<BooleanEvent> sub = Sub.of(BooleanEvent.class, e -> hits++);
+    private static Sub<BooleanEvent> subStaticPriv = Sub.of(BooleanEvent.class, e -> hits++);
+    protected static Sub<BooleanEvent> subStaticProt = Sub.of(BooleanEvent.class, e -> hits++);
+    static Sub<BooleanEvent> subStatic = Sub.of(BooleanEvent.class, e -> hits++);
 
     @BeforeEach
     void setUp() {
@@ -76,51 +76,51 @@ class ClassRegTests {
     }
 
     private class InnerClassPriv {
-        private Sub<BooleanEvent> subPriv = Sub.of(e -> hits++);
-        protected Sub<BooleanEvent> subProt = Sub.of(e -> hits++);
-        Sub<BooleanEvent> sub = Sub.of(e -> hits++);
+        private Sub<BooleanEvent> subPriv = Sub.of(BooleanEvent.class, e -> hits++);
+        protected Sub<BooleanEvent> subProt = Sub.of(BooleanEvent.class, e -> hits++);
+        Sub<BooleanEvent> sub = Sub.of(BooleanEvent.class, e -> hits++);
     }
 
     protected class InnerClassProt {
-        private Sub<BooleanEvent> subPriv = Sub.of(e -> hits++);
-        protected Sub<BooleanEvent> subProt = Sub.of(e -> hits++);
-        Sub<BooleanEvent> sub = Sub.of(e -> hits++);
+        private Sub<BooleanEvent> subPriv = Sub.of(BooleanEvent.class, e -> hits++);
+        protected Sub<BooleanEvent> subProt = Sub.of(BooleanEvent.class, e -> hits++);
+        Sub<BooleanEvent> sub = Sub.of(BooleanEvent.class, e -> hits++);
     }
 
     class InnerClass {
-        private Sub<BooleanEvent> subPriv = Sub.of(e -> hits++);
-        protected Sub<BooleanEvent> subProt = Sub.of(e -> hits++);
-        Sub<BooleanEvent> sub = Sub.of(e -> hits++);
+        private Sub<BooleanEvent> subPriv = Sub.of(BooleanEvent.class, e -> hits++);
+        protected Sub<BooleanEvent> subProt = Sub.of(BooleanEvent.class, e -> hits++);
+        Sub<BooleanEvent> sub = Sub.of(BooleanEvent.class, e -> hits++);
     }
 
     final class InnerFinalClass {
-        private Sub<BooleanEvent> subPriv = Sub.of(e -> hits++);
-        protected Sub<BooleanEvent> subProt = Sub.of(e -> hits++);
-        Sub<BooleanEvent> sub = Sub.of(e -> hits++);
+        private Sub<BooleanEvent> subPriv = Sub.of(BooleanEvent.class, e -> hits++);
+        protected Sub<BooleanEvent> subProt = Sub.of(BooleanEvent.class, e -> hits++);
+        Sub<BooleanEvent> sub = Sub.of(BooleanEvent.class, e -> hits++);
     }
 
     private static class InnerStaticClassPriv {
-        private Sub<BooleanEvent> subPriv = Sub.of(e -> hits++);
-        protected Sub<BooleanEvent> subProt = Sub.of(e -> hits++);
-        Sub<BooleanEvent> sub = Sub.of(e -> hits++);
+        private Sub<BooleanEvent> subPriv = Sub.of(BooleanEvent.class, e -> hits++);
+        protected Sub<BooleanEvent> subProt = Sub.of(BooleanEvent.class, e -> hits++);
+        Sub<BooleanEvent> sub = Sub.of(BooleanEvent.class, e -> hits++);
     }
 
     protected static class InnerStaticClassProt {
-        private Sub<BooleanEvent> subPriv = Sub.of(e -> hits++);
-        protected Sub<BooleanEvent> subProt = Sub.of(e -> hits++);
-        Sub<BooleanEvent> sub = Sub.of(e -> hits++);
+        private Sub<BooleanEvent> subPriv = Sub.of(BooleanEvent.class, e -> hits++);
+        protected Sub<BooleanEvent> subProt = Sub.of(BooleanEvent.class, e -> hits++);
+        Sub<BooleanEvent> sub = Sub.of(BooleanEvent.class, e -> hits++);
     }
 
     private static class InnerStaticClassPriv2 {
-        private static final Sub<BooleanEvent> subPriv = Sub.of(e -> hits++);
-        protected static Sub<BooleanEvent> subProt = Sub.of(e -> hits++);
-        static Sub<BooleanEvent> sub = Sub.of(e -> hits++);
+        private static final Sub<BooleanEvent> subPriv = Sub.of(BooleanEvent.class, e -> hits++);
+        protected static Sub<BooleanEvent> subProt = Sub.of(BooleanEvent.class, e -> hits++);
+        static Sub<BooleanEvent> sub = Sub.of(BooleanEvent.class, e -> hits++);
     }
 
     protected static class InnerStaticClassProt2 {
-        private static final Sub<BooleanEvent> subPriv = Sub.of(e -> hits++);
-        protected static Sub<BooleanEvent> subProt = Sub.of(e -> hits++);
-        static Sub<BooleanEvent> sub = Sub.of(e -> hits++);
+        private static final Sub<BooleanEvent> subPriv = Sub.of(BooleanEvent.class, e -> hits++);
+        protected static Sub<BooleanEvent> subProt = Sub.of(BooleanEvent.class, e -> hits++);
+        static Sub<BooleanEvent> sub = Sub.of(BooleanEvent.class, e -> hits++);
     }
 
 }

@@ -14,9 +14,9 @@ class MultiTest {
     private static Bus bus = new Bus();
     private static int hits;
 
-    private final Sub<Object> sub = new Sub<>(o -> hits++);
+    private final Sub<Object> sub = new Sub<>(Object.class, o -> hits++);
 
-    private static final Sub<Object> subStatic = Sub.of(o -> hits++);
+    private static final Sub<Object> subStatic = Sub.of(Object.class, o -> hits++);
 
     @BeforeEach
     void setUp() {
@@ -42,8 +42,8 @@ class MultiTest {
 
     @Test
     void regInline() {
-        bus.reg(new Sub<>(o -> hits++));
-        bus.reg(Sub.of(o -> hits++));
+        bus.reg(new Sub<>(Object.class, o -> hits++));
+        bus.reg(Sub.of(Object.class, o -> hits++));
         bus.pub(new Object());
         Assertions.assertEquals(2, hits);
     }

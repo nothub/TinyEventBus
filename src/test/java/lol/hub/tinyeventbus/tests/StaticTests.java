@@ -14,7 +14,7 @@ class StaticTests {
     private static Bus bus;
     private static boolean invoked;
 
-    Sub<BooleanEvent> sub = new Sub<>(e -> invoked = e.value, 0);
+    Sub<BooleanEvent> sub = new Sub<>(BooleanEvent.class, e -> invoked = e.value, 0);
 
     @BeforeAll
     static void setUp() {
