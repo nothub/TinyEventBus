@@ -9,17 +9,16 @@ Tiny and fast pubsub implementation with subscriber priorities and event canceli
 ###### usage
 
 ```java
-void run(){
-    Bus bus=new Bus();
-    bus.reg(Sub.of(System.out::println));
+void run() {
+    Bus bus = new Bus();
+    bus.reg(Sub.of(String.class, System.out::println));
     bus.pub("Hello World!");
-    }
+}
 ```
 
 ```java
 class Listenable {
-    Sub<Long> sub = Sub.of(l -> ThreadLocalRandom.current().setSeed(l));
-
+    Sub<Long> sub = Sub.of(Long.class, l -> Foo.bar(l));
     void run() {
         Bus bus = new Bus();
         bus.reg(this);
