@@ -10,8 +10,7 @@
   <packaging>jar</packaging>
 
   <name>${project.artifactId}</name>
-  <description>Tiny and fast pubsub implementation with subscriber priorities and event canceling for Java 8, 11 and
-    17.
+  <description>Tiny and fast pubsub implementation with subscriber priorities and event canceling for Java 8, 11 and 17.
   </description>
   <url>https://github.com/nothub/TinyEventBus</url>
 
@@ -25,7 +24,7 @@
   <developers>
     <developer>
       <name>hub</name>
-      <email>tinyeventbus@hub.lol</email>
+      <email>code@hub.lol</email>
     </developer>
   </developers>
 
@@ -73,23 +72,6 @@
               <fail>true</fail>
               <failFast>true</failFast>
             </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.owasp</groupId>
-        <artifactId>dependency-check-maven</artifactId>
-        <version>7.1.1</version>
-        <configuration>
-          <failBuildOnCVSS>4.0</failBuildOnCVSS>
-          <cveValidForHours>1</cveValidForHours>
-          <skipProvidedScope>true</skipProvidedScope>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>check</goal>
-            </goals>
           </execution>
         </executions>
       </plugin>
@@ -179,11 +161,6 @@
   </distributionManagement>
 
   <dependencies>
-    <dependency>
-      <groupId>net.jodah</groupId>
-      <artifactId>typetools</artifactId>
-      <version>0.6.3</version>
-    </dependency>
     <dependency>
       <groupId>org.jetbrains</groupId>
       <artifactId>annotations</artifactId>
