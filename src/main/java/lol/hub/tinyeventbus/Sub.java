@@ -1,6 +1,5 @@
 package lol.hub.tinyeventbus;
 
-import net.jodah.typetools.TypeResolver;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
@@ -46,19 +45,6 @@ public class Sub<T> implements Comparable<Sub<T>> {
     }
 
     /**
-     * Creates a {@link Sub} instance.
-     *
-     * @param consumer Consumer to be invoked when an event is received.
-     * @param priority Priority of processing.
-     * @see Sub#of(Consumer, int)
-     */
-    public Sub(Consumer<T> consumer, int priority) {
-        this.priority = priority;
-        this.consumer = consumer;
-        this.eventType = TypeResolver.resolveRawArguments(Consumer.class, consumer.getClass())[0];
-    }
-
-    /**
      * Creates a {@link Sub} instance with manually defined event type.
      *
      * @param consumer  Consumer to be invoked when an event is received.
@@ -67,18 +53,6 @@ public class Sub<T> implements Comparable<Sub<T>> {
      */
     public Sub(Consumer<T> consumer, Class<?> eventType) {
         this(consumer, 0, eventType);
-    }
-
-
-    /**
-     * Creates a {@link Sub} instance.
-     * {@link Sub#priority} defaults to 0.
-     *
-     * @param consumer Consumer to be invoked when an event is received.
-     * @see Sub#of(Consumer)
-     */
-    public Sub(Consumer<T> consumer) {
-        this(consumer, 0);
     }
 
     /**
@@ -98,19 +72,6 @@ public class Sub<T> implements Comparable<Sub<T>> {
     /**
      * Convenience method to create a {@link Sub} instance.
      *
-     * @param consumer Consumer to be invoked when an event is received.
-     * @param priority Priority of processing.
-     * @param <T>      Generically defined type of event to be subscribed to.
-     * @return Created {@link Sub} instance.
-     * @see Sub#Sub(Consumer, int)
-     */
-    public static <T> Sub<T> of(Consumer<T> consumer, int priority) {
-        return new Sub<>(consumer, priority);
-    }
-
-    /**
-     * Convenience method to create a {@link Sub} instance.
-     *
      * @param consumer  Consumer to be invoked when an event is received.
      * @param eventType Manually defined type of event to be subscribed to.
      * @param <T>       Generically defined type of event to be subscribed to.
@@ -119,19 +80,6 @@ public class Sub<T> implements Comparable<Sub<T>> {
      */
     public static <T> Sub<T> of(Consumer<T> consumer, Class<?> eventType) {
         return new Sub<>(consumer, eventType);
-    }
-
-    /**
-     * Convenience method to create a {@link Sub} instance.
-     * {@link Sub#priority} defaults to 0.
-     *
-     * @param consumer Consumer to be invoked when an event is received.
-     * @param <T>      Generically defined type of event to be subscribed to.
-     * @return Created {@link Sub} instance.
-     * @see Sub#Sub(Consumer)
-     */
-    public static <T> Sub<T> of(Consumer<T> consumer) {
-        return new Sub<>(consumer);
     }
 
     void accept(Object event) {
