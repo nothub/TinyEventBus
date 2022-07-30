@@ -10,7 +10,8 @@
   <packaging>jar</packaging>
 
   <name>${project.artifactId}</name>
-  <description>Tiny and fast pubsub implementation with subscriber priorities and event canceling for Java 8, 11 and 17.
+  <description>Tiny and fast pubsub implementation with subscriber priorities and event canceling for Java 8, 11 and
+    17.
   </description>
   <url>https://github.com/nothub/TinyEventBus</url>
 
@@ -111,22 +112,20 @@
 
   <profiles>
     <profile>
-      <id>github</id>
-      <repositories>
-        <repository>
-          <id>central</id>
-          <url>https://repo1.maven.org/maven2</url>
-        </repository>
-        <repository>
-          <id>github</id>
-          <url>https://maven.pkg.github.com/nothub/TinyEventBus</url>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
-        </repository>
-      </repositories>
+      <id>release</id>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.13</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
@@ -153,6 +152,20 @@
               </execution>
             </executions>
           </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>3.0.1</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
         </plugins>
       </build>
     </profile>
@@ -160,9 +173,8 @@
 
   <distributionManagement>
     <snapshotRepository>
-      <id>github</id>
-      <name>GitHub Maven Packages</name>
-      <url>https://maven.pkg.github.com/nothub/TinyEventBus</url>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 
