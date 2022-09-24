@@ -33,7 +33,6 @@ version = { ->
 
 repositories {
     mavenCentral()
-    maven { url = uri('https://repo.maven.apache.org/maven2/') }
 }
 
 dependencies {
@@ -68,7 +67,6 @@ publishing {
             pom {
                 name = project.name
                 description = 'Tiny and fast pubsub implementation with subscriber priorities and event canceling for Java 8, 11 and 17.'
-                url = 'https://github.com/nothub/TinyEventBus'
                 licenses {
                     license {
                         name = 'MIT License'
