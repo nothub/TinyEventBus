@@ -1,0 +1,20 @@
+name: '🚔'
+on: push
+jobs:
+  job:
+    name: 'Java ${{ matrix.java }}'
+    runs-on: 'ubuntu-22.04'
+    strategy:
+      matrix:
+        java: [ 8, 11, 17 ]
+      fail-fast: true
+    steps:
+      - uses: actions/checkout@v3
+      - uses: gradle/wrapper-validation-action@v1
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '${{ matrix.java }}'
+          distribution: 'temurin'
+          check-latest: true
+          cache: 'gradle'
+      - run: 'make verify'

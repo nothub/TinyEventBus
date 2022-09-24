@@ -33,9 +33,9 @@ public class Sub<T> implements Comparable<Sub<T>> {
     /**
      * Creates a {@link Sub} instance with manually defined event type.
      *
-     * @param consumer  Consumer to be invoked when an event is received.
-     * @param priority  Priority of processing.
-     * @param topic Manually defined type of event to be subscribed to.
+     * @param consumer Consumer to be invoked when an event is received.
+     * @param priority Priority of processing.
+     * @param topic    Manually defined type of event to be subscribed to.
      * @see Sub#of(Class, Consumer, int)
      */
     public Sub(Class<?> topic, Consumer<T> consumer, int priority) {
@@ -47,8 +47,8 @@ public class Sub<T> implements Comparable<Sub<T>> {
     /**
      * Creates a {@link Sub} instance with manually defined event type.
      *
-     * @param consumer  Consumer to be invoked when an event is received.
-     * @param topic Manually defined type of event to be subscribed to.
+     * @param consumer Consumer to be invoked when an event is received.
+     * @param topic    Manually defined type of event to be subscribed to.
      * @see Sub#of(Class, Consumer)
      */
     public Sub(Class<?> topic, Consumer<T> consumer) {
@@ -58,33 +58,32 @@ public class Sub<T> implements Comparable<Sub<T>> {
     /**
      * Convenience method to create a {@link Sub} instance.
      *
-     * @param consumer  Consumer to be invoked when an event is received.
-     * @param priority  Priority of processing.
-     * @param topic Manually defined type of event to be subscribed to.
-     * @param <T>       Generically defined type of event to be subscribed to.
+     * @param consumer Consumer to be invoked when an event is received.
+     * @param priority Priority of processing.
+     * @param topic    Manually defined type of event to be subscribed to.
+     * @param <T>      Generically defined type of event to be subscribed to.
      * @return Created {@link Sub} instance.
      * @see Sub#Sub(Class, Consumer, int)
      */
-    public static <T> Sub<T> of(Class<?> topic, Consumer<T> consumer, int priority ) {
-        return new Sub<>(topic, consumer, priority );
+    public static <T> Sub<T> of(Class<?> topic, Consumer<T> consumer, int priority) {
+        return new Sub<>(topic, consumer, priority);
     }
 
     /**
      * Convenience method to create a {@link Sub} instance.
      *
-     * @param consumer  Consumer to be invoked when an event is received.
-     * @param topic Manually defined type of event to be subscribed to.
-     * @param <T>       Generically defined type of event to be subscribed to.
+     * @param consumer Consumer to be invoked when an event is received.
+     * @param topic    Manually defined type of event to be subscribed to.
+     * @param <T>      Generically defined type of event to be subscribed to.
      * @return Created {@link Sub} instance.
      * @see Sub#Sub(Class, Consumer)
      */
-    public static <T> Sub<T> of(Class<?> topic, Consumer<T> consumer ) {
-        return new Sub<>(topic, consumer );
+    public static <T> Sub<T> of(Class<?> topic, Consumer<T> consumer) {
+        return new Sub<>(topic, consumer);
     }
 
     void accept(Object event) {
         try {
-            //noinspection unchecked
             consumer.accept((T) event);
         } catch (ClassCastException e) {
             e.printStackTrace();

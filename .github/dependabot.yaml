@@ -1,13 +1,11 @@
 version: 2
 updates:
-
-  - package-ecosystem: "maven"
+  - package-ecosystem: "gradle"
     directory: "/"
     schedule:
       interval: "daily"
     assignees:
       - "nothub"
-
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

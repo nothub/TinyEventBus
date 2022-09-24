@@ -30,11 +30,11 @@ public class Bus {
     @NotNull
     private static Set<Sub<?>> getSubFields(Object parent) {
         return Arrays.stream(parent.getClass().getDeclaredFields())
-            .filter(field -> field.getType().equals(Sub.class))
-            .filter(field -> Sub.class.isAssignableFrom(field.getType()))
-            .map(subFieldConverter(parent))
-            .filter(Objects::nonNull)
-            .collect(Collectors.toSet());
+                     .filter(field -> field.getType().equals(Sub.class))
+                     .filter(field -> Sub.class.isAssignableFrom(field.getType()))
+                     .map(subFieldConverter(parent))
+                     .filter(Objects::nonNull)
+                     .collect(Collectors.toSet());
     }
 
     @NotNull
@@ -76,9 +76,7 @@ public class Bus {
      * @see #reg(Object)
      */
     public void reg(Sub<?> sub) {
-        subs
-            .computeIfAbsent(sub.topic, clazz -> new ConcurrentSkipListSet<>())
-            .add(sub);
+        subs.computeIfAbsent(sub.topic, clazz -> new ConcurrentSkipListSet<>()).add(sub);
     }
 
 
@@ -89,8 +87,7 @@ public class Bus {
      * @see #reg(Sub)
      */
     public void reg(Object parent) {
-        getSubFields(parent)
-            .forEach(this::reg);
+        getSubFields(parent).forEach(this::reg);
     }
 
 
@@ -114,8 +111,7 @@ public class Bus {
      * @see #unreg(Sub)
      */
     public void unreg(Object parent) {
-        getSubFields(parent)
-            .forEach(this::unreg);
+        getSubFields(parent).forEach(this::unreg);
     }
 
 }

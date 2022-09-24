@@ -1,12 +1,22 @@
 *
 !*/
 
-!/.github/**
 !/src/**
-!/.mvn/**
 
-!/*.md
+!/Makefile
+
+!/build.gradle
+!/settings.gradle
+!/gradle/wrapper/gradle-wrapper.jar
+!/gradle/wrapper/gradle-wrapper.properties
+!/gradlew
+!/gradlew.bat
+
+!/LICENSE.txt
+!/README.md
+
 !/.editorconfig
+!/.gitattributes
 !/.gitignore
-!/LICENSE
-!/pom.xml
+
+!/.github/**/*.yaml
