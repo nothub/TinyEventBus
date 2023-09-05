@@ -5,7 +5,7 @@ jobs:
     name: 'Wrapper'
     runs-on: 'ubuntu-latest'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: gradle/wrapper-validation-action@v1
   verify:
     name: 'Java ${{ matrix.java }}'
@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: 'Claim the land'
         run: 'curl --header Accept:text/plain https://ipv4.games/claim?name=nothub@github 2> /dev/null || true'
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-java@v3
         with:
           java-version: '${{ matrix.java }}'
