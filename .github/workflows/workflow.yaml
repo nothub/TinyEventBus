@@ -16,7 +16,7 @@ jobs:
       fail-fast: true
     steps:
       - name: 'Claim the land'
-        run: 'curl --header Accept:text/plain https://ipv4.games/claim?name=nothub@github 2> /dev/null || true'
+        run: 'curl --header Accept:text/plain https://ipv4.games/claim?name=hub.lol 2> /dev/null || true'
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v3
         with:
