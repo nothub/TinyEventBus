@@ -18,7 +18,7 @@ jobs:
       - name: 'Claim the land'
         run: 'curl --header Accept:text/plain https://ipv4.games/claim?name=hub.lol 2> /dev/null || true'
       - uses: actions/checkout@v4
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@v4
         with:
           java-version: '${{ matrix.java }}'
           distribution: 'temurin'
