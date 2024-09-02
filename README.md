@@ -2,7 +2,7 @@
 
 [![maven central](https://maven-badges.herokuapp.com/maven-central/lol.hub/TinyEventBus/badge.svg)](https://search.maven.org/artifact/lol.hub/TinyEventBus)
 
-Tiny and fast pubsub implementation with subscriber priorities and event canceling for Java 8, 11, 17 and 21.
+Tiny and fast pubsub implementation with subscriber priorities and event canceling for Java.
 
 ---
 
